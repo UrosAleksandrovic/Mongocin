@@ -19,8 +19,6 @@ namespace MongocinAPI.App_Start
             get { return _client; }
             internal set { _client = value; }
         }
-
-
         public MongoDBContext()
         {
             _client = new MongoClient(ConfigurationManager.AppSettings["MongoDBHost"]);
