@@ -26,26 +26,25 @@ namespace MongocinAPI.Controllers
         }
         // GET: Product
         [HttpGet]
-        public List<ProductModel> Get()
+        public ActionResult Index()
         {
+            var response = new JsonResult();
             List<ProductModel> _products = _productCollection.AsQueryable<ProductModel>().ToList();
-            return _products;
+            response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            response.Data = _products;
+            return response;
         }
 
         // GET: Product/Details/5
-        
-        public ActionResult GetOne(string id)
-        {
-            var _productId = new ObjectId(id);
-            var _product = _productCollection.AsQueryable<ProductModel>().SingleOrDefault(x => x.Id == _productId);
+        [HttpGet]
+        public ActionResult Details(string id)
+        {   
+            
+            var _product = _productCollection.AsQueryable<ProductModel>().SingleOrDefault();
             return View(_product);
         }
 
-        // GET: Product/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+   
 
         // POST: Product/Create
         [HttpPost]
@@ -55,51 +54,39 @@ namespace MongocinAPI.Controllers
             {
                 // TODO: Add insert logic here
                 _productCollection.InsertOne(product);
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
             }
             catch
             {
-                return View();
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
         }
 
-        // GET: Product/Edit/5
-        public ActionResult Edit(string id)
-        {
-            var _productId = new ObjectId(id);
-            var _product = _productCollection.AsQueryable<ProductModel>().SingleOrDefault(x => x.Id == _productId);
-            return View(_product);
-        }
+       
 
         // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(string id, ProductModel product)
+        public ActionResult Edit(ProductModel product)
         {
             try
             {
                 // TODO: Add update logic here
-                var _filter = Builders<ProductModel>.Filter.Eq("_id", ObjectId.Parse(id));
+                var _filter = Builders<ProductModel>.Filter.Eq("_id", ObjectId.Parse(product.Id));
                 var _update = Builders<ProductModel>.Update
                     .Set("Name", product.Name)
                     .Set("Quantity", product.Quantity)
                     .Set("Price", product.Price)
                     .Set("Description", product.Description);
                 var _result = _productCollection.UpdateOne(_filter, _update);
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
             }
             catch
             {
-                return View();
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
         }
 
-        // GET: Product/Delete/5
-        public ActionResult Delete(string id)
-        {
-            var _productId = new ObjectId(id);
-            var _product = _productCollection.AsQueryable<ProductModel>().SingleOrDefault(x => x.Id == _productId);
-            return View(_product);
-        }
+      
 
         // POST: Product/Delete/5
         [HttpPost]
@@ -111,11 +98,11 @@ namespace MongocinAPI.Controllers
                 var _filter = Builders<ProductModel>.Filter.Eq("_id", ObjectId.Parse(id));
 
                 _productCollection.DeleteOne(_filter);
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
             }
             catch
             {
-                return View();
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
         }
     }

@@ -10,7 +10,8 @@ namespace MongocinAPI.Models
     public class ProductModel
     {
         [BsonId]
-        public ObjectId Id {get; set;}
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id {get; set;}
         [BsonElement("Name")]
         public string Name { get; set; }
         [BsonElement("Quantity")]
