@@ -1,110 +1,94 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using MongoDB.Bson;
-using MongoDB.Driver.Core;
-using System.Configuration;
-using MongocinAPI.App_Start;
-using MongoDB.Driver;
 using MongocinAPI.Models;
-using MongocinAPI.Models.Abstract;
+using MongocinAPI.Services;
 
 namespace MongocinAPI.Controllers
 {
     public class WarehouseController : Controller
     {
-        private MongoDBContext _mongoDBContext;
-        private IMongoCollection<Warehouse> _warehouseCollection;
+        #region Attributes
+
+        private WarehouseService _warehouseService;
+
+        #endregion
+
+        #region Constructors
 
         public WarehouseController()
         {
-            _mongoDBContext = new MongoDBContext();
-            _warehouseCollection = _mongoDBContext.Database.GetCollection<Warehouse>("warehouse");
-            
+            _warehouseService = new WarehouseService();
         }
+
+        #endregion
+
+        #region Actions
+
         [HttpGet]
-        // GET: Warehouse
-        public ActionResult Index()
+        [Route("Warehouse/GetAllWarehouses/{NumberOfWarehouses}")]
+        public ActionResult GetAllWarehouses(string NumberOfWarehouses)
         {
-            var response = new JsonResult();
-            List<Warehouse> _shops = _warehouseCollection.AsQueryable<Warehouse>().ToList();
-            response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            response.Data = _shops;
-            return response;
+            int RequestedNumber;
+            if (!int.TryParse(NumberOfWarehouses, out RequestedNumber))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            List<Warehouse> ListOfWarehouses = _warehouseService.GetNWarehouses(RequestedNumber);
+            JsonResult Response = new JsonResult();
+            Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            Response.Data = ListOfWarehouses;
+            return Response;
         }
+
         [HttpGet]
-        // GET: Warehouse/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Get(string Id)
         {
-            var _product = _warehouseCollection.AsQueryable<Warehouse>().SingleOrDefault();
-            return View(_product);
+            Warehouse Result = _warehouseService.GetWarehouse(Id);
+            JsonResult Response = new JsonResult();
+            Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            Response.Data = Result;
+            return Response;
         }
 
-       
-
-        // POST: Warehouse/Create
         [HttpPost]
-        public ActionResult Create(Warehouse warehouse)
+        public ActionResult Create(Warehouse NewWarehouse)
         {
-            try
+            if (NewWarehouse.Address != null
+                && NewWarehouse.Products != null
+                && NewWarehouse.Name != null
+                && NewWarehouse.OrdersList != null)
             {
-
-                // TODO: Add insert logic here
-                _warehouseCollection.InsertOne(warehouse);
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+                if (_warehouseService.InsertWarehouse(NewWarehouse))
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+                else
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
-            catch
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
 
-        // GET: Warehouse/Edit/5
-       
-
-        // POST: Warehouse/Edit/5
         [HttpPost]
-        public ActionResult Edit(Warehouse warehouse)
+        public ActionResult Delete(string Id)
         {
-            try
-            {
-                // TODO: Add update logic here
-                var _filter = Builders<Warehouse>.Filter.Eq("_id", ObjectId.Parse(warehouse.Id));
-                var _update = Builders<Warehouse>.Update
-                    .Set("Name", warehouse.Name)
-                    .Set("Address", warehouse.Address)
-                    .Set("Products", warehouse.Products)
-                    .Set("Receipts", warehouse.Orders);
-                var _result = _warehouseCollection.UpdateOne(_filter, _update);
+            if (_warehouseService.DeleteWarehouse(Id))
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
-            }
-            catch
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
 
-        // GET: Warehouse/Delete/5
-        
-
-        // POST: Warehouse/Delete/5
-        [HttpPost]
-        public ActionResult Delete(string id)
+        [HttpPut]
+        public ActionResult Edit(Warehouse WarehouseToEdit)
         {
-            try
-            {
-                // TODO: Add delete logic here
-                var _filter = Builders<Warehouse>.Filter.Eq("_id", ObjectId.Parse(id));
-
-                _warehouseCollection.DeleteOne(_filter);
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
-            }
-            catch
-            {
+            if (WarehouseToEdit.Address == null
+               || WarehouseToEdit.Products == null
+               || WarehouseToEdit.Name == null
+               || WarehouseToEdit.OrdersList == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
+
+            if (_warehouseService.UpdateWarehouse(WarehouseToEdit))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
+
+        public ActionResult Index => View();
+
+        #endregion
+
     }
 }
