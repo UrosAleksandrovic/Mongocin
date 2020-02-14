@@ -37,15 +37,15 @@ namespace MongocinAPI.Controllers
 
         [HttpGet]
         [Route("Receipt/GetAllReceipts/{NumberOfReceipts}")]
-        public ActionResult GetAllOrders(string NumberOfReceipts)
+        public ActionResult GetAllReceipts(string NumberOfReceipts)
         {
             int RequestedNumber;
             if (!int.TryParse(NumberOfReceipts, out RequestedNumber))
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            List<Receipt> ListOfOrders = _receiptService.GetNReceipts(RequestedNumber);
+            List<Receipt> ListOfReceipts = _receiptService.GetNReceipts(RequestedNumber);
             JsonResult Response = new JsonResult();
             Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            Response.Data = ListOfOrders;
+            Response.Data = ListOfReceipts;
             return Response;
         }
 

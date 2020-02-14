@@ -17,7 +17,7 @@ namespace MongocinAPI.Models.Abstract
             public string Address { get; set; }
 
             [BsonElement("Products")]
-            public List<ProductModel> Products { get; set; }
+            public List<ProductListElement> Products { get; set; }
 
             [BsonElement("Name")]
             public string Name { get; set; }
@@ -30,24 +30,14 @@ namespace MongocinAPI.Models.Abstract
             [BsonRepresentation(BsonType.ObjectId)]
             public string Id { get; set; }
 
-          
-            
-           
-
-          
-           
-            
-            
-          
-
             #endregion
 
             #region Methodes
 
-            public void AddProduct(ProductModel NewProduct)
+            public void AddProduct(ProductListElement NewProduct)
             {
                 if (this.Products == null)
-                Products = new List<ProductModel>();
+                Products = new List<ProductListElement>();
 
                 this.Products.Add(NewProduct);
                 
@@ -57,18 +47,9 @@ namespace MongocinAPI.Models.Abstract
             {
                 if (this.Products == null)
                     return;
-                this.Products.RemoveAt(this.Products.FindIndex(SingleProduct => SingleProduct.Id == ProductId));
+                this.Products.RemoveAt(this.Products.FindIndex(SingleProduct => SingleProduct.ProductId == ProductId));
             }
 
             #endregion
-
-
-
-
-
-
-
-
-
     }
 }

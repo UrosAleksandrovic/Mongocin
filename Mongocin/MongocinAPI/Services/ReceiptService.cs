@@ -92,7 +92,7 @@ namespace MongocinAPI.Services
             }
         }
 
-        public int Count() => (int)_receiptCollection.CountDocuments(order => true);
+        public int Count() => (int)_receiptCollection.CountDocuments(receipt => true);
 
         public List<Receipt> GetNReceipts(int NumberOfReceipts)
         {

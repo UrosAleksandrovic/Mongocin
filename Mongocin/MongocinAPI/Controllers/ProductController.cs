@@ -1,109 +1,91 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using MongoDB.Bson;
-using MongoDB.Driver.Core;
-using System.Configuration;
-using MongocinAPI.App_Start;
-using MongoDB.Driver;
 using MongocinAPI.Models;
+using MongocinAPI.Services;
 
 namespace MongocinAPI.Controllers
 {
-   
-    
     public class ProductController : Controller
     {
-        private MongoDBContext _mongoDBContext;
-        private IMongoCollection<ProductModel> _productCollection;
+        #region Attributes
 
-        public ProductController() 
+        private ProductService _productService;
+
+        #endregion
+
+        #region Constructors
+
+        public ProductController()
         {
-            _mongoDBContext = new MongoDBContext();
-            _productCollection = _mongoDBContext.Database.GetCollection<ProductModel>("product");
+            _productService = new ProductService();
         }
-        // GET: Product
+
+        #endregion
+
+        #region Actions
+
         [HttpGet]
-        public ActionResult Index()
+        [Route("Product/GetAllProducts/{NumberOfProducts}")]
+        public ActionResult GetAllProducts(string NumberOfProducts)
         {
-            var response = new JsonResult();
-            List<ProductModel> _products = _productCollection.AsQueryable<ProductModel>().ToList();
-            response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            response.Data = _products;
-            return response;
+            int RequestedNumber;
+            if (!int.TryParse(NumberOfProducts, out RequestedNumber))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            List<Product> ListOfProducts = _productService.GetProducts(RequestedNumber);
+            JsonResult Response = new JsonResult();
+            Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            Response.Data = ListOfProducts;
+            return Response;
         }
 
-        // GET: Product/Details/5
         [HttpGet]
-        public ActionResult Details(string id)
-        {   
-            
-            var _product = _productCollection.AsQueryable<ProductModel>().SingleOrDefault();
-            return View(_product);
-        }
-
-   
-
-        // POST: Product/Create
-        [HttpPost]
-        public ActionResult Create(ProductModel product)
+        public ActionResult Get(string Id)
         {
-            try
-            {
-                // TODO: Add insert logic here
-                _productCollection.InsertOne(product);
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
-            }
-            catch
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
+            Product Result = _productService.GetProduct(Id);
+            JsonResult Response = new JsonResult();
+            Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            Response.Data = Result;
+            return Response;
         }
 
-       
-
-        // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(ProductModel product)
+        public ActionResult Create(Product NewProduct)
         {
-            try
+            if (NewProduct.Name != null
+                && NewProduct.Description != null
+                && NewProduct.Price != null)
             {
-                // TODO: Add update logic here
-                var _filter = Builders<ProductModel>.Filter.Eq("_id", ObjectId.Parse(product.Id));
-                var _update = Builders<ProductModel>.Update
-                    .Set("Name", product.Name)
-                    .Set("Quantity", product.Quantity)
-                    .Set("Price", product.Price)
-                    .Set("Description", product.Description);
-                var _result = _productCollection.UpdateOne(_filter, _update);
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+                if (_productService.InsertProduct(NewProduct))
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+                else
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
-            catch
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
 
-      
-
-        // POST: Product/Delete/5
         [HttpPost]
-        public ActionResult Delete(string id, ProductModel product)
+        public ActionResult Delete(string Id)
         {
-            try
-            {
-                // TODO: Add delete logic here
-                var _filter = Builders<ProductModel>.Filter.Eq("_id", ObjectId.Parse(id));
-
-                _productCollection.DeleteOne(_filter);
+            if (_productService.DeleteProduct(Id))
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
-            }
-            catch
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
+
+        [HttpPut]
+        public ActionResult Edit(Product ProductToEdit)
+        {
+            if (ProductToEdit.Name == null
+               || ProductToEdit.Description == null
+               || ProductToEdit.Price == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+
+            if (_productService.UpdateProduct(ProductToEdit))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        public ActionResult Index => View();
+
+        #endregion
     }
 }

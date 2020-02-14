@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using MongoDB.Bson;
-using MongoDB.Driver.Core;
-using System.Configuration;
-using MongocinAPI.App_Start;
-using MongoDB.Driver;
 using MongocinAPI.Models;
-using MongocinAPI.Models.Abstract;
+using MongocinAPI.Services;
 
 namespace MongocinAPI.Controllers
 {
@@ -17,95 +9,87 @@ namespace MongocinAPI.Controllers
 
     public class ShopController : Controller
     {
-        private MongoDBContext _mongoDBContext;
-        private IMongoCollection<Shop> _shopCollection;
+        #region Attributes
+
+        private ShopService _shopService;
+
+        #endregion
+
+        #region Constructors
 
         public ShopController()
         {
-            _mongoDBContext = new MongoDBContext();
-            _shopCollection = _mongoDBContext.Database.GetCollection<Shop>("shop");
+            _shopService = new ShopService();
         }
-        // GET: Product
+
+        #endregion
+
+        #region Actions
+
         [HttpGet]
-        public ActionResult Index()
+        [Route("Shop/GetAllShop/{NumberOfShop}")]
+        public ActionResult GetAllShops(string NumberOfShops)
         {
-            var response = new JsonResult();
-            List<Shop> _shops = _shopCollection.AsQueryable<Shop>().ToList();
-            response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            response.Data = _shops;
-            return response;
+            int RequestedNumber;
+            if (!int.TryParse(NumberOfShops, out RequestedNumber))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            List<Shop> ListOfShops = _shopService.GetNShops(RequestedNumber);
+            JsonResult Response = new JsonResult();
+            Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            Response.Data = ListOfShops;
+            return Response;
         }
 
-        // GET: Product/Details/5
         [HttpGet]
-        public ActionResult Details(string id)
+        public ActionResult Get(string Id)
         {
-
-            var _product = _shopCollection.AsQueryable<Shop>().SingleOrDefault();
-            return View(_product);
+            Shop Result = _shopService.GetShop(Id);
+            JsonResult Response = new JsonResult();
+            Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            Response.Data = Result;
+            return Response;
         }
 
-
-
-        // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(Shop shop)
+        public ActionResult Create(Shop NewShop)
         {
-            try
+            if (NewShop.Address != null
+                && NewShop.Products != null
+                && NewShop.Name != null
+                && NewShop.Receipts != null)
             {
-              
-                // TODO: Add insert logic here
-                _shopCollection.InsertOne(shop);
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+                if (_shopService.InsertShop(NewShop))
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+                else
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
-            catch
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
 
-
-
-        // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(Shop shop)
+        public ActionResult Delete(string Id)
         {
-            try
-            {
-                // TODO: Add update logic here
-                var _filter = Builders<Shop>.Filter.Eq("_id", ObjectId.Parse(shop.Id));
-                var _update = Builders<Shop>.Update
-                    .Set("Name", shop.Name)
-                    .Set("Address", shop.Address)
-                    .Set("Products", shop.Products)
-                    .Set("Receipts", shop.Receipts);
-                var _result = _shopCollection.UpdateOne(_filter, _update);
+            if (_shopService.DeleteShop(Id))
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
-            }
-            catch
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
 
-
-
-        // POST: Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(string id)
+        [HttpPut]
+        public ActionResult Edit(Shop ShopToEdit)
         {
-            try
-            {
-                // TODO: Add delete logic here
-                var _filter = Builders<Shop>.Filter.Eq("_id", ObjectId.Parse(id));
-
-                _shopCollection.DeleteOne(_filter);
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
-            }
-            catch
-            {
+            if (ShopToEdit.Address == null
+               || ShopToEdit.Products == null
+               || ShopToEdit.Name == null
+               || ShopToEdit.Receipts == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
+
+            if (_shopService.UpdateShop(ShopToEdit))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
+
+        public ActionResult Index => View();
+
+        #endregion
     }
 }
