@@ -16,7 +16,7 @@ namespace MongocinDesktop.Models.Abstract
             public string Address { get; set; }
 
      
-            public List<ProductModel> Products { get; set; }
+            public List<Product> Products { get; set; }
 
         
             public string Name { get; set; }
@@ -42,10 +42,10 @@ namespace MongocinDesktop.Models.Abstract
 
             #region Methodes
 
-            public void AddProduct(ProductModel NewProduct)
+            public void AddProduct(Product NewProduct)
             {
                 if (this.Products == null)
-                Products = new List<ProductModel>();
+                Products = new List<Product>();
 
                 this.Products.Add(NewProduct);
                 

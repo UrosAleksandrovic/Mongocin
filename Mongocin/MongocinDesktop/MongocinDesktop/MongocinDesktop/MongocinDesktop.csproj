@@ -154,7 +154,7 @@
     <Compile Include="Models\Interfaces\IStatefull.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\ProductListElement.cs" />
-    <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\TransferRequest.cs" />

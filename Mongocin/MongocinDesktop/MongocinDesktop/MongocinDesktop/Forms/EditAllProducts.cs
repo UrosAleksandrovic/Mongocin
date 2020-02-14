@@ -15,8 +15,8 @@ namespace MongocinDesktop.Forms
 {
     public partial class EditAllProducts : Form
     {
-        ProductModel _product;
-        public EditAllProducts(ProductModel product)
+        Product _product;
+        public EditAllProducts(Product product)
         {
             InitializeComponent();
             _product = product;

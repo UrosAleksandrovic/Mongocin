@@ -15,7 +15,7 @@ namespace MongocinDesktop.Forms
 {
     public partial class AddAllProducts : Form
     {
-        ProductModel _product = new ProductModel();
+        Product _product = new Product();
         public AddAllProducts()
         {
             InitializeComponent();

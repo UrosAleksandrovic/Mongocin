@@ -18,7 +18,7 @@ namespace MongocinDesktop.Forms
     {
         Shop shop;
 
-        List<ProductModel> _allProducts = new List<ProductModel>();
+        List<Product> _allProducts = new List<Product>();
         public ShopProducts(Shop shop)
         {
             InitializeComponent();
@@ -37,7 +37,7 @@ namespace MongocinDesktop.Forms
             listViewProducts.Items.Clear();
             listViewAllProducts.Items.Clear();
 
-            foreach (ProductModel op in shop.Products)
+            foreach (Product op in shop.Products)
             {
 
                 ListViewItem item = new ListViewItem(new string[] { op.Name.ToString() });
@@ -62,7 +62,7 @@ namespace MongocinDesktop.Forms
                 using (var sr = new StreamReader(s))
                 {
                     var contributorsAsJson = sr.ReadToEnd();
-                    _allProducts = JsonConvert.DeserializeObject<List<ProductModel>>(contributorsAsJson);
+                    _allProducts = JsonConvert.DeserializeObject<List<Product>>(contributorsAsJson);
 
 
                 }

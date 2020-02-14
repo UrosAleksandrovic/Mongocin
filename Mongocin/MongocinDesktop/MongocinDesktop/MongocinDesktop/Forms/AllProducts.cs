@@ -18,7 +18,7 @@ namespace MongocinDesktop.Forms
 {
     public partial class AllProducts : Form
     {
-        List<ProductModel> _allProducts = new List<ProductModel>();
+        List<Product> _allProducts = new List<Product>();
         public AllProducts()
         {
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace MongocinDesktop.Forms
             GetAllProducts();
 
             listViewProducts.Items.Clear();
-            foreach (ProductModel op in _allProducts)
+            foreach (Product op in _allProducts)
             {
                 ListViewItem item = new ListViewItem(new string[] { op.Name.ToString(), op.Price.ToString(), op.Description.ToString(), op.Id.ToString() });
 
@@ -64,7 +64,7 @@ namespace MongocinDesktop.Forms
                 using (var sr = new StreamReader(s))
                 {
                     var contributorsAsJson = sr.ReadToEnd();
-                    _allProducts = JsonConvert.DeserializeObject<List<ProductModel>>(contributorsAsJson);
+                    _allProducts = JsonConvert.DeserializeObject<List<Product>>(contributorsAsJson);
 
 
                 }
@@ -118,7 +118,7 @@ namespace MongocinDesktop.Forms
             try
             {
                 string id = listViewProducts.SelectedItems[0].SubItems[3].Text;
-                ProductModel myProduct = _allProducts.Find(item => item.Id == id);
+                Product myProduct = _allProducts.Find(item => item.Id == id);
                 EditAllProducts addProduct = new EditAllProducts(myProduct);
                 addProduct.ShowDialog();
                 PopulateInfos();

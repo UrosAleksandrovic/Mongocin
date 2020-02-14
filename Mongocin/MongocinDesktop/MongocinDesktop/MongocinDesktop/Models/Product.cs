@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MongocinDesktop.Models
 {
-    public class ProductModel
+    public class Product
     {
        
         public string Id {get; set;}
