@@ -15,7 +15,7 @@ namespace MongocinAPI.Models
         private double _fullCost;
 
         [BsonElement("Products")]
-        private List<Product> _productList;
+        private ProductListElement[] _productList;
 
         [BsonElement("Date")]
         private DateTime _dateOfBill;
@@ -26,7 +26,7 @@ namespace MongocinAPI.Models
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        private string Id { get; set; }
+        public string Id { get; set; }
 
         [BsonIgnore]
         public double FullCost
@@ -43,12 +43,13 @@ namespace MongocinAPI.Models
                 }*/
                 return _fullCost;
             }
-            protected set { _fullCost = value; }
+            set { _fullCost = value; }
         }
 
         [BsonIgnore]
-        public List<Product> ProductList
+        public ProductListElement[] ProductList
         {
+            get { return _productList; }
             set { _productList = value; }
         }
 
@@ -63,31 +64,23 @@ namespace MongocinAPI.Models
 
         #region Methodes
 
-        public void AddProduct(Product NewProduct)
-        {
-            if(this._productList == null)
-                _productList = new List<Product>();
+        /* public void AddProduct(Product NewProduct)
+         {
+             if(this._productList == null)
+                 _productList = new List<Product>();
 
-            this._productList.Add(NewProduct);
-            FullCost += NewProduct.Value;
-        }
+             this._productList.Add(NewProduct);
+             FullCost += NewProduct.Value;
+         }
 
-        public void DeleteProduct(string ProductId)
-        {
-            if (this._productList == null)
-                return;
-            this._productList.RemoveAt(this._productList.FindIndex(SingleProduct => SingleProduct.ID == ProductId));
-        }
-        
+         public void DeleteProduct(string ProductId)
+         {
+             if (this._productList == null)
+                 return;
+             this._productList.RemoveAt(this._productList.FindIndex(SingleProduct => SingleProduct.ID == ProductId));
+         }
+         */
         #endregion
-
-
-
-
-
-
-
-
 
     }
 }

@@ -24,12 +24,5 @@ namespace MongocinAPI.Models
 
         #endregion
 
-
-
-
-
-
-
-
     }
 }

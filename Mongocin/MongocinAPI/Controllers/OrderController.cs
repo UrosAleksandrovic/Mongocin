@@ -1,99 +1,97 @@
-﻿using MongocinAPI.App_Start;
-using MongocinAPI.Models;
-using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongocinAPI.Models;
+using MongocinAPI.Services;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using MongoDB.Driver;
 
 namespace MongocinAPI.Controllers
 {
-
     public class OrderController : Controller
     {
-        private MongoDBContext _dbContext;
-        private IMongoCollection<Order> _orderCollection;
+        #region Attributes
+
+        private OrderService _orderService;
+
+        #endregion
+
+        #region Constructors
 
         public OrderController()
         {
-            _dbContext = new MongoDBContext();
-            _orderCollection = _dbContext.Database.GetCollection<Order>("Order");
+            _orderService = new OrderService();
         }
 
-        // GET: Order
-        public ActionResult Index()
-        {
-            var response = new JsonResult();
-            response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            response.Data = _orderCollection.Find(order => true).ToList();
-            return response;
-        }
+        #endregion
 
-        // GET: Order/Details/5
+        #region Actions
+
         [HttpGet]
-        public ActionResult Details(int id)
+        [Route("Order/GetAllOrders/{NumberOfOrders}")]
+        public ActionResult GetAllOrders(string NumberOfOrders)
         {
-            Order order = _orderCollection.AsQueryable<Order>().SingleOrDefault();
-            return View(order);
-        }
-
-        // POST: Order/Create
-        [HttpPost]
-        public ActionResult Create(Order order)
-        {
-            try
-            {
-                _orderCollection.InsertOne(order);
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
-            }
-            catch
-            {
+            int RequestedNumber;
+            if (!int.TryParse(NumberOfOrders, out RequestedNumber))
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
+            List<Order> ListOfOrders = _orderService.GetNOrders(RequestedNumber);
+            JsonResult Response = new JsonResult();
+            Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            Response.Data = ListOfOrders;
+            return Response;
         }
 
-        // GET: Order/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Get(string Id)
         {
-            Order order = _orderCollection.AsQueryable<Order>().SingleOrDefault();
-            return View(order);
+            Order Result = _orderService.GetOrder(Id);
+            JsonResult Response = new JsonResult();
+            Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            Response.Data = Result;
+            return Response;
         }
 
-        // POST: Order/Edit/5
         [HttpPost]
-        public ActionResult Edit(string id, FormCollection collection)
+        public ActionResult Create(Order NewOrder)
         {
-           try
+            if (NewOrder.CustomerName != null
+                && NewOrder.CustomerAddress != null
+                && NewOrder.DateOfBill != null
+                && NewOrder.StorageId != null
+                && NewOrder.ProductList != null)
             {
-                /*var Filter = Builders<Order>.Filter.Eq("_id", ObjectId.Parse(id));
-                var update = Builders<Order>.Update.Set("")*/
-                return RedirectToAction("Index");
+                if (_orderService.InsertOrder(NewOrder))
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+                else
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
-            catch
-            {
-                return View();
-            }
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
 
-        // GET: Order/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Order/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string Id)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            if (_orderService.DeleteOrder(Id))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
+
+        [HttpPut]
+        public ActionResult Edit(Order OrderToEdit)
+        {
+            if (OrderToEdit.CustomerName == null
+               || OrderToEdit.CustomerAddress == null
+               || OrderToEdit.DateOfBill == null
+               || OrderToEdit.StorageId == null
+               || OrderToEdit.ProductList == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+
+            if (_orderService.UpdateOrder(OrderToEdit))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        public ActionResult Index => View();
+
+        #endregion
+
     }
 }
