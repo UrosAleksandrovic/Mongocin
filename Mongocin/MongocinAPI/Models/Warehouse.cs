@@ -11,10 +11,7 @@ namespace MongocinAPI.Models
 {
     public class Warehouse : Storehouse
     {
-       [BsonIgnore]
-        public List<Order> OrdersList { get; set; }
-
         [BsonElement("Orders")]
-        public List<String> Orders { get; set; }
+        public List<string> Orders { get; set; }
     }
 }

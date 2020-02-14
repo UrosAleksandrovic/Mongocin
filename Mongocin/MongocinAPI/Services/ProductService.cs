@@ -16,7 +16,7 @@ namespace MongocinAPI.Services
         {
             _dbContext = new MongoDBContext();
             _productCollection = _dbContext.Database.GetCollection<Product>
-                (ConfigurationManager.AppSettings["ProductsCollectionName"]);
+                (ConfigurationManager.AppSettings["ProductCollectionName"]);
         }
 
         public Product GetProduct(string productId)
