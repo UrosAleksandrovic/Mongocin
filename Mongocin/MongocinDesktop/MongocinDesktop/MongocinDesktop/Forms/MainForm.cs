@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongocinDesktop.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,8 @@ namespace MongocinDesktop.Forms
 {
     public partial class MainForm : Form
     {
-       // List<Shop> _shops;
-       // List<Warehouse> _warehouses;
+        List<Shop> _shops = new List<Shop>();
+        List<Warehouse> _warehouses = new List<Warehouse>();
         public MainForm()
         {
             InitializeComponent();
@@ -48,10 +49,10 @@ namespace MongocinDesktop.Forms
         }
 
         private void buttonShop_Click(object sender, EventArgs e)
-        {/*
+        {
             try
             {
-                string id = listViewShop.SelectedItems[0].SubItems[0].Id;
+                string id = listViewShop.SelectedItems[0].SubItems[1].Text;
                 Shop myShop = _shops.Find(item => item.Id == id);
 
                 EditShop editShop = new EditShop(myShop);
@@ -61,24 +62,30 @@ namespace MongocinDesktop.Forms
             catch (Exception ec)
             {
                 MessageBox.Show("Select a shop");
-            }*/
+            }
         }
 
         private void buttonWarehouse_Click(object sender, EventArgs e)
-        {/*
+        {
             try
             {
-                string id = listViewShop.SelectedItems[0].SubItems[0].Id;
-                Warehouse myShop = _warehouses.Find(item => item.Id == id);
+                string id = listViewShop.SelectedItems[0].SubItems[0].Text;
+                Warehouse myWarehouse = _warehouses.Find(item => item.Id == id);
 
-                EditWarehouse editWarehouse = new EditWarehouse(myShop);
+                EditWarehouse editWarehouse = new EditWarehouse(myWarehouse);
                 editWarehouse.ShowDialog();
                 PopulateInfos();
             }
             catch (Exception ec)
             {
                 MessageBox.Show("Select a warewhouse");
-            }*/
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AllProducts allProducts = new AllProducts();
+            allProducts.ShowDialog();
         }
     }
 }

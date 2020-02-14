@@ -136,6 +136,12 @@
     <Compile Include="Forms\ReceiptsViewProducts.Designer.cs">
       <DependentUpon>ReceiptsViewProducts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ShopProducts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ShopProducts.Designer.cs">
+      <DependentUpon>ShopProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\TransferRequest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReceiptsViewProducts.resx">
       <DependentUpon>ReceiptsViewProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ShopProducts.resx">
+      <DependentUpon>ShopProducts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TransferRequest.resx">
       <DependentUpon>TransferRequest.cs</DependentUpon>

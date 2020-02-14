@@ -60,6 +60,7 @@
             this.saveShopChangesButton.TabIndex = 2;
             this.saveShopChangesButton.Text = "Save";
             this.saveShopChangesButton.UseVisualStyleBackColor = true;
+            this.saveShopChangesButton.Click += new System.EventHandler(this.saveShopChangesButton_Click);
             // 
             // viewProductsButton
             // 

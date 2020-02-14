@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongocinDesktop.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,36 @@ namespace MongocinDesktop.Forms
 {
     public partial class Products : Form
     {
-        public Products()
+        Warehouse _warehouse;
+        public Products(Warehouse warehouse)
         {
             InitializeComponent();
+            _warehouse = warehouse;
+        }
+
+        private void Products_Load(object sender, EventArgs e)
+        {
+            PopulateInfos();
+        }
+
+        private void PopulateInfos()
+        {
+            listViewProducts.Items.Clear();
+            listViewAllProducts.Items.Clear();
+
+            foreach (ProductModel op in _warehouse.Products)
+            {
+                
+                ListViewItem item = new ListViewItem(new string[] { op.Name.ToString() });
+
+                listViewProducts.Items.Add(item);
+            }
+            listViewProducts.Refresh();
+        }
+
+        private void listViewAllProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

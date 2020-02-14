@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.listViewShop = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listViewWarehouse = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonShop = new System.Windows.Forms.Button();
             this.buttonWarehouse = new System.Windows.Forms.Button();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -54,6 +54,14 @@
             this.listViewShop.UseCompatibleStateImageBehavior = false;
             this.listViewShop.View = System.Windows.Forms.View.Details;
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Name";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Id";
+            // 
             // listViewWarehouse
             // 
             this.listViewWarehouse.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -66,6 +74,14 @@
             this.listViewWarehouse.TabIndex = 1;
             this.listViewWarehouse.UseCompatibleStateImageBehavior = false;
             this.listViewWarehouse.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Name";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Id";
             // 
             // label1
             // 
@@ -84,14 +100,6 @@
             this.label2.Size = new System.Drawing.Size(88, 17);
             this.label2.TabIndex = 3;
             this.label2.Text = "Warehouses";
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Name";
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Name";
             // 
             // buttonShop
             // 
@@ -114,14 +122,6 @@
             this.buttonWarehouse.UseVisualStyleBackColor = true;
             this.buttonWarehouse.Click += new System.EventHandler(this.buttonWarehouse_Click);
             // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Id";
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Id";
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(377, 447);
@@ -130,6 +130,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "View all products";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 
