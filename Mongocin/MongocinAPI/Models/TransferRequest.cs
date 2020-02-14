@@ -18,7 +18,8 @@ namespace MongocinAPI.Models
         [BsonElement("StorageId")]
         private string _storageId;
 
-        private List<Product> _productList;
+        [BsonElement("ProductList")]
+        private ProductListElement[] _productList;
 
         #endregion
 
@@ -28,7 +29,7 @@ namespace MongocinAPI.Models
         public string Id
         {
             get { return _id; }
-            private set { _id = value; }
+            set { _id = value; }
         }
 
         [BsonIgnore]
@@ -46,7 +47,7 @@ namespace MongocinAPI.Models
         }
 
         [BsonIgnore]
-        public List<Product> ProductList
+        public ProductListElement[] ProductList
         {
             get { return _productList; }
             private set { _productList = value; }

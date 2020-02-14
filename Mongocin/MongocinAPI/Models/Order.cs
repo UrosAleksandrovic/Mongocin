@@ -41,7 +41,7 @@ namespace MongocinAPI.Models
         public string StorageId
         {
             get { return _storageId; }
-            protected set { _storageId = value; }
+            set { _storageId = value; }
         }
 
         [BsonElement("State")]
