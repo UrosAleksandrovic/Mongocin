@@ -294,7 +294,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -306,22 +305,23 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Abstract\Storehouse.cs" />
-    <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Abstract\Bill.cs" />
     <Compile Include="Models\Interfaces\IStatefull.cs" />
     <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductListElement.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\Shop.cs" />
-    <Compile Include="Models\StateEnum.cs" />
     <Compile Include="Models\Enum\StateEnum.cs" />
     <Compile Include="Models\TransferRequest.cs" />
     <Compile Include="Models\Warehouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\ReceiptService.cs" />
+    <Compile Include="Services\ShopService.cs" />
     <Compile Include="Services\TransferService.cs" />
+    <Compile Include="Services\WarehouseService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -384,10 +384,10 @@
     <Folder Include="Views\Book\" />
     <Folder Include="Views\Order\" />
     <Folder Include="Views\ProductController\" />
-    <Folder Include="Views\Shop\" />
-    <Folder Include="Views\Warehouse\" />
     <Folder Include="Views\Receipt\" />
+    <Folder Include="Views\Shop\" />
     <Folder Include="Views\TransferRequest\" />
+    <Folder Include="Views\Warehouse\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
