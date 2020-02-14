@@ -28,21 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxAddress = new System.Windows.Forms.TextBox();
             this.textBoxCustomerNmae = new System.Windows.Forms.TextBox();
             this.textBoxCustomerAddress = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // textBoxAddress
-            // 
-            this.textBoxAddress.Location = new System.Drawing.Point(220, 99);
-            this.textBoxAddress.Name = "textBoxAddress";
-            this.textBoxAddress.Size = new System.Drawing.Size(146, 22);
-            this.textBoxAddress.TabIndex = 0;
             // 
             // textBoxCustomerNmae
             // 
@@ -57,15 +48,6 @@
             this.textBoxCustomerAddress.Name = "textBoxCustomerAddress";
             this.textBoxCustomerAddress.Size = new System.Drawing.Size(146, 22);
             this.textBoxCustomerAddress.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(80, 103);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 17);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Address";
             // 
             // label2
             // 
@@ -93,6 +75,7 @@
             this.buttonSave.TabIndex = 6;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // EditOrder
             // 
@@ -102,23 +85,19 @@
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxCustomerAddress);
             this.Controls.Add(this.textBoxCustomerNmae);
-            this.Controls.Add(this.textBoxAddress);
             this.Name = "EditOrder";
             this.Text = "EditOrder";
+            this.Load += new System.EventHandler(this.EditOrder_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBoxAddress;
         private System.Windows.Forms.TextBox textBoxCustomerNmae;
         private System.Windows.Forms.TextBox textBoxCustomerAddress;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonSave;

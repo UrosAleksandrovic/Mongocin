@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Json.Net, Version=1.0.18.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Json.Net.1.0.18\lib\netstandard2.0\Json.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -136,6 +142,17 @@
     <Compile Include="Forms\TransferRequest.Designer.cs">
       <DependentUpon>TransferRequest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Abstract\Bill.cs" />
+    <Compile Include="Models\Abstract\Storehouse.cs" />
+    <Compile Include="Models\Enum\StateEnum.cs" />
+    <Compile Include="Models\Interfaces\IStatefull.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\ProductListElement.cs" />
+    <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\Receipt.cs" />
+    <Compile Include="Models\Shop.cs" />
+    <Compile Include="Models\TransferRequest.cs" />
+    <Compile Include="Models\Warehouse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AddAllProducts.resx">
@@ -189,6 +206,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

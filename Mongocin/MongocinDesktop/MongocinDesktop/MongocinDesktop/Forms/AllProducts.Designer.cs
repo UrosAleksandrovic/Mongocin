@@ -46,6 +46,7 @@
             this.editProductButton.TabIndex = 13;
             this.editProductButton.Text = "Edit";
             this.editProductButton.UseVisualStyleBackColor = true;
+            this.editProductButton.Click += new System.EventHandler(this.editProductButton_Click);
             // 
             // addProductButton
             // 
@@ -55,6 +56,7 @@
             this.addProductButton.TabIndex = 12;
             this.addProductButton.Text = "Add";
             this.addProductButton.UseVisualStyleBackColor = true;
+            this.addProductButton.Click += new System.EventHandler(this.addProductButton_Click);
             // 
             // deleteProductButton
             // 
@@ -64,6 +66,7 @@
             this.deleteProductButton.TabIndex = 11;
             this.deleteProductButton.Text = "Delete";
             this.deleteProductButton.UseVisualStyleBackColor = true;
+            this.deleteProductButton.Click += new System.EventHandler(this.deleteProductButton_Click);
             // 
             // listViewProducts
             // 
@@ -72,6 +75,7 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
+            this.listViewProducts.FullRowSelect = true;
             this.listViewProducts.HideSelection = false;
             this.listViewProducts.Location = new System.Drawing.Point(41, 50);
             this.listViewProducts.Name = "listViewProducts";
@@ -96,7 +100,6 @@
             // 
             // columnHeader4
             // 
-            this.columnHeader4.DisplayIndex = 0;
             this.columnHeader4.Text = "ID";
             // 
             // AllProducts
@@ -110,6 +113,7 @@
             this.Controls.Add(this.listViewProducts);
             this.Name = "AllProducts";
             this.Text = "AllProducts";
+            this.Load += new System.EventHandler(this.AllProducts_Load);
             this.ResumeLayout(false);
 
         }

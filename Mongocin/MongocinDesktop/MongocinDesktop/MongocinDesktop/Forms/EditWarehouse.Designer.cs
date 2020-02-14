@@ -63,6 +63,7 @@
             this.viewOrdersButton.TabIndex = 11;
             this.viewOrdersButton.Text = "View Orders";
             this.viewOrdersButton.UseVisualStyleBackColor = true;
+            this.viewOrdersButton.Click += new System.EventHandler(this.viewOrdersButton_Click);
             // 
             // viewProductsButton
             // 
@@ -72,6 +73,7 @@
             this.viewProductsButton.TabIndex = 10;
             this.viewProductsButton.Text = "View Products";
             this.viewProductsButton.UseVisualStyleBackColor = true;
+            this.viewProductsButton.Click += new System.EventHandler(this.viewProductsButton_Click);
             // 
             // saveWarehouseChangesButton
             // 
@@ -81,6 +83,7 @@
             this.saveWarehouseChangesButton.TabIndex = 9;
             this.saveWarehouseChangesButton.Text = "Save";
             this.saveWarehouseChangesButton.UseVisualStyleBackColor = true;
+            this.saveWarehouseChangesButton.Click += new System.EventHandler(this.saveWarehouseChangesButton_Click);
             // 
             // addressTextBox
             // 
@@ -110,6 +113,7 @@
             this.Controls.Add(this.nameTextBox);
             this.Name = "EditWarehouse";
             this.Text = "EditWarehouse";
+            this.Load += new System.EventHandler(this.EditWarehouse_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -97,6 +97,7 @@
             this.buttonSave.TabIndex = 6;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // EditAllProducts
             // 
@@ -112,6 +113,7 @@
             this.Controls.Add(this.textBoxName);
             this.Name = "EditAllProducts";
             this.Text = "EditAllProducts";
+            this.Load += new System.EventHandler(this.EditAllProducts_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

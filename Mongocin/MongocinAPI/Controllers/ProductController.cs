@@ -74,7 +74,6 @@ namespace MongocinAPI.Controllers
                 var _filter = Builders<ProductModel>.Filter.Eq("_id", ObjectId.Parse(product.Id));
                 var _update = Builders<ProductModel>.Update
                     .Set("Name", product.Name)
-                    .Set("Quantity", product.Quantity)
                     .Set("Price", product.Price)
                     .Set("Description", product.Description);
                 var _result = _productCollection.UpdateOne(_filter, _update);
@@ -90,10 +89,11 @@ namespace MongocinAPI.Controllers
 
         // POST: Product/Delete/5
         [HttpPost]
-        public ActionResult Delete(string id, ProductModel product)
+        public ActionResult Delete(string id)
         {
             try
             {
+                Console.WriteLine(id);
                 // TODO: Add delete logic here
                 var _filter = Builders<ProductModel>.Filter.Eq("_id", ObjectId.Parse(id));
 

@@ -12,8 +12,8 @@ namespace MongocinDesktop.Forms
 {
     public partial class MainForm : Form
     {
-        List<Shop> _shops;
-        List<Warehouse> _warehouses;
+       // List<Shop> _shops;
+       // List<Warehouse> _warehouses;
         public MainForm()
         {
             InitializeComponent();
@@ -25,7 +25,7 @@ namespace MongocinDesktop.Forms
         }
 
         private void PopulateInfos()
-        {
+        {/*
             listViewShop.Items.Clear();
             _shops = //pribavi shops
             foreach (Shop op in _shops)
@@ -44,11 +44,11 @@ namespace MongocinDesktop.Forms
 
                 listViewWarehouse.Items.Add(item);
             }
-            listViewWarehouse.Refresh();
+            listViewWarehouse.Refresh();*/
         }
 
         private void buttonShop_Click(object sender, EventArgs e)
-        {
+        {/*
             try
             {
                 string id = listViewShop.SelectedItems[0].SubItems[0].Id;
@@ -61,11 +61,11 @@ namespace MongocinDesktop.Forms
             catch (Exception ec)
             {
                 MessageBox.Show("Select a shop");
-            }
+            }*/
         }
 
         private void buttonWarehouse_Click(object sender, EventArgs e)
-        {
+        {/*
             try
             {
                 string id = listViewShop.SelectedItems[0].SubItems[0].Id;
@@ -78,7 +78,7 @@ namespace MongocinDesktop.Forms
             catch (Exception ec)
             {
                 MessageBox.Show("Select a warewhouse");
-            }
+            }*/
         }
     }
 }

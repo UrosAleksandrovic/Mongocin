@@ -310,11 +310,9 @@
     <Compile Include="Models\Abstract\Bill.cs" />
     <Compile Include="Models\Interfaces\IStatefull.cs" />
     <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductListElement.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\Shop.cs" />
-    <Compile Include="Models\StateEnum.cs" />
     <Compile Include="Models\Enum\StateEnum.cs" />
     <Compile Include="Models\TransferRequest.cs" />
     <Compile Include="Models\Warehouse.cs" />
@@ -384,10 +382,10 @@
     <Folder Include="Views\Book\" />
     <Folder Include="Views\Order\" />
     <Folder Include="Views\ProductController\" />
-    <Folder Include="Views\Shop\" />
-    <Folder Include="Views\Warehouse\" />
     <Folder Include="Views\Receipt\" />
+    <Folder Include="Views\Shop\" />
     <Folder Include="Views\TransferRequest\" />
+    <Folder Include="Views\Warehouse\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

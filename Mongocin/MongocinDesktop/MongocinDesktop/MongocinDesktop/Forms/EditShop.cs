@@ -12,12 +12,12 @@ namespace MongocinDesktop.Forms
 {
     public partial class EditShop : Form
     {
-        Shop _shop;
-        public EditShop(Shop myShop)
+       // Shop _shop;
+        public EditShop()
         {
             InitializeComponent();
-            _shop = myShop;
-            textbox1.text = _shop.Name;
+            /*_shop = myShop;
+            textbox1.text = _shop.Name;*/
 
         }
 
@@ -28,7 +28,7 @@ namespace MongocinDesktop.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            try
+           /* try
             {
                 string id = listViewShop.SelectedItems[0].SubItems[0].Id;
                 Warehouse myShop = _warehouses.Find(item => item.Id == id);
@@ -40,7 +40,7 @@ namespace MongocinDesktop.Forms
             catch (Exception ec)
             {
                 MessageBox.Show("Select a warewhouse");
-            }
+            }*/
         }
 
         private void label1_Click(object sender, EventArgs e)
