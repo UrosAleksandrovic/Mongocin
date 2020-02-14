@@ -52,9 +52,7 @@ namespace MongocinAPI.Controllers
         public ActionResult Create(Warehouse NewWarehouse)
         {
             if (NewWarehouse.Address != null
-                && NewWarehouse.Products != null
-                && NewWarehouse.Name != null
-                && NewWarehouse.OrdersList != null)
+                && NewWarehouse.Name != null)
             {
                 if (_warehouseService.InsertWarehouse(NewWarehouse))
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
@@ -78,7 +76,7 @@ namespace MongocinAPI.Controllers
             if (WarehouseToEdit.Address == null
                || WarehouseToEdit.Products == null
                || WarehouseToEdit.Name == null
-               || WarehouseToEdit.OrdersList == null)
+               || WarehouseToEdit.Orders == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 
             if (_warehouseService.UpdateWarehouse(WarehouseToEdit))

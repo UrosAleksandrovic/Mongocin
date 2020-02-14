@@ -82,7 +82,7 @@ namespace MongocinAPI.Services
                     .Set("Address",shop.Address)
                     .Set("Products",shop.Products)
                     .Set("Name",shop.Name)
-                    .Set("Receipts",shop.ReceiptList);
+                    .Set("Receipts",shop.Receipts);
                 _shopCollection.UpdateOne(Builders<Shop>.Filter.Eq("Id", shop.Id.ToString()), UpdateShop);
                 return true;
             }

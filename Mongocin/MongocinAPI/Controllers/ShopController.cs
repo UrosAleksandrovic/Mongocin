@@ -54,9 +54,7 @@ namespace MongocinAPI.Controllers
         public ActionResult Create(Shop NewShop)
         {
             if (NewShop.Address != null
-                && NewShop.Products != null
-                && NewShop.Name != null
-                && NewShop.Receipts != null)
+                && NewShop.Name != null)
             {
                 if (_shopService.InsertShop(NewShop))
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
