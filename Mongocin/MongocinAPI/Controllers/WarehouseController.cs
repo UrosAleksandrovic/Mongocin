@@ -98,6 +98,15 @@ namespace MongocinAPI.Controllers
             return Response;
         }
 
+        [HttpPut]
+        [Route("Warehouse/AddProduct")]
+        public ActionResult AddProduct(string WarehouseId, string ProductId, int Quantity)
+        {
+            if (_warehouseService.AddProduct(WarehouseId, ProductId, Quantity))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+        }
+
         public ActionResult Index => View();
 
         #endregion

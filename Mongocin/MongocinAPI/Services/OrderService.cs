@@ -42,6 +42,7 @@ namespace MongocinAPI.Services
             {
                 if (_orderCollection == null)
                     return false;
+                CalculateFullCost(Order);
                 Order.Id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                 Order prevOrder = GetOrder(Order.Id.ToString());
                 if (prevOrder == null)
@@ -95,6 +96,40 @@ namespace MongocinAPI.Services
             }
         }
 
+        public bool ChangeState(string OrderId, StateEnum NewState)
+        {
+            if (CheckIfExists(OrderId) == false)
+                return false;
+            UpdateDefinition<Order> UpdateOrder = Builders<Order>.Update
+                   .Set("State", NewState);
+            try
+            {
+                _orderCollection.UpdateOne(Builders<Order>.Filter.Eq("Id", OrderId), UpdateOrder);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool CheckIfExists(string OrderId)
+        {
+            if (_orderCollection == null)
+                return false;
+            FilterDefinition<Order> Filter = Builders<Order>.Filter.Eq("Id", OrderId);
+            try
+            {
+                if (_orderCollection.Find<Order>(Filter).ToList().Count == 0)
+                    return false;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
         public int Count() => (int)_orderCollection.CountDocuments(order=>true);
 
         public List<Order> GetNOrders(int numberOfOrders)
@@ -112,6 +147,71 @@ namespace MongocinAPI.Services
             {
                 return null;
             }
+        }
+    
+        public List<Order> GetAllOrdersOfOneWarehouse(string WarehouseId)
+        {
+            try
+            {
+                List<Order> ListOfOrders;
+                FilterDefinition<Order> Filter = Builders<Order>.Filter.Eq("StorageId", WarehouseId);
+                ListOfOrders = _orderCollection.Find<Order>(Filter).ToList();
+                return ListOfOrders;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+    
+        public bool ProcessOrder(string OrderId)
+        {
+            WarehouseService WarehouseS = new WarehouseService();
+
+            Order TargetedOrder = GetOrder(OrderId);
+            if (TargetedOrder == null)
+                return false;
+            if (!WarehouseS.WarehouseExists(TargetedOrder.StorageId))
+                return false;
+            if (!TargetedOrder.ProductList.All(SingleProduct =>
+                 WarehouseS.CheckProductQuantity(TargetedOrder.StorageId, SingleProduct.ProductId, SingleProduct.ProductQuantity)))
+                return false;
+
+            foreach (ProductListElement SingleProduct in TargetedOrder.ProductList)
+                WarehouseS.DeleteProduct(TargetedOrder.StorageId, SingleProduct.ProductId, SingleProduct.ProductQuantity);
+            try
+            {
+                TargetedOrder.State = StateEnum.Shipped;
+                UpdateDefinition<Order> UpdateOrderRequest = Builders<Order>.Update
+                        .Set("State", TargetedOrder.State);
+                _orderCollection.UpdateOne(Builders<Order>.Filter.Eq("Id", TargetedOrder.Id), UpdateOrderRequest);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public double CalculateFullCostOfList(List<ProductListElement> ReceiptList)
+        {
+            ProductService Products = new ProductService();
+            double Cost = 0;
+            foreach (ProductListElement SingleProduct in ReceiptList)
+            {
+                Product FromDatabase = Products.GetProduct(SingleProduct.ProductId);
+                if (FromDatabase != null)
+                    Cost += FromDatabase.Price * SingleProduct.ProductQuantity;
+            }
+            return Cost;
+        }
+
+        public void CalculateFullCost(Order OrderToCalculate)
+        {
+            if (OrderToCalculate.ProductList != null)
+                OrderToCalculate.FullCost = CalculateFullCostOfList(OrderToCalculate.ProductList);
+            else
+                OrderToCalculate.FullCost = 0;
         }
     }
 }
