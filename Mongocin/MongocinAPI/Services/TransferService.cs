@@ -99,7 +99,7 @@ namespace MongocinAPI.Services
             try
             {
                 List<TransferRequest> listOfTransfers;
-                FilterDefinition<TransferRequest> Filter = Builders<TransferRequest>.Filter.Eq("ShopId", new MongoDB.Bson.ObjectId(ShopId));
+                FilterDefinition<TransferRequest> Filter = Builders<TransferRequest>.Filter.Eq("ShopId", ShopId);
                 listOfTransfers = _transferRequestCollection.Find<TransferRequest>(Filter).ToList();
                 return listOfTransfers;
             }
@@ -114,7 +114,7 @@ namespace MongocinAPI.Services
             try
             {
                 List<TransferRequest> listOfTransfers;
-                FilterDefinition<TransferRequest> Filter = Builders<TransferRequest>.Filter.Eq("StorageId", new MongoDB.Bson.ObjectId(WarehouseId));
+                FilterDefinition<TransferRequest> Filter = Builders<TransferRequest>.Filter.Eq("StorageId", WarehouseId);
                 listOfTransfers = _transferRequestCollection.Find<TransferRequest>(Filter).ToList();
                 return listOfTransfers;
             }
