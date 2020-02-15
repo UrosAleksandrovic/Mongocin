@@ -8,20 +8,48 @@ namespace MongocinAPI.Models
     {
         #region Attributes
 
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
-
         [BsonElement("ShopId")]
-        public string ShopId { get; set; }
+        private string _shopId;
 
         [BsonElement("StorageId")]
-        public string StorageId { get; set; }
+        private string _storageId;
 
         [BsonElement("ProductList")]
-        public ProductListElement[] ProductList { get; set; }
+        private List<ProductListElement> _productList;
 
-       
+        #endregion
+
+        #region Properties
+
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id
+        {
+            get;
+            set;
+        }
+
+        [BsonIgnore]
+        public string ShopId
+        {
+            get { return _shopId; }
+            set { _shopId = value; }
+        }
+
+        [BsonIgnore]
+        public string StorageId
+        {
+            get { return _storageId; }
+            set { _storageId = value; }
+        }
+
+        [BsonIgnore]
+        public List<ProductListElement> ProductList
+        {
+            get { return _productList; }
+            set { _productList = value; }
+        }
+
         [BsonElement("State")]
         public StateEnum State { get; set; }
 

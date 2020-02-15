@@ -78,7 +78,7 @@ namespace MongocinDesktop.Forms
             productString = productString + "]";
 
 
-
+            /*
             List<string> myReceipts = _shop.Receipts;
             string receiptString = "[";
 
@@ -99,8 +99,8 @@ namespace MongocinDesktop.Forms
             }
 
             receiptString = receiptString + "]";
-
-            string postData = "{\"Name\":\"" + _shop.Name + "\", \"Address\":\"" + _shop.Address + "\", \"Id\":\"" + _shop.Id + "\", \"Receipts\":" + receiptString + ", \"Products\":" + productString + "}";
+            */
+            string postData = "{\"Name\":\"" + _shop.Name + "\", \"Address\":\"" + _shop.Address + "\", \"Id\":\"" + _shop.Id + "\", \"Products\":" + productString + "}";
             using (var streamW = new StreamWriter(webRequest.GetRequestStream()))
             {
                 streamW.Write(postData);

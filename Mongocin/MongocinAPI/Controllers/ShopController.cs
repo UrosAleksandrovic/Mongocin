@@ -116,7 +116,7 @@ namespace MongocinAPI.Controllers
         }
 
         [HttpGet]
-        [Route("Shop/ReturnAllProductsOfShop")]
+        [Route("Shop/ReturnAllProductsOfShop/{ShopId}")]
         public ActionResult ReturnAllProductsOfShop(string ShopId)
         {
             List<Product> listOfProducts = new List<Product>();

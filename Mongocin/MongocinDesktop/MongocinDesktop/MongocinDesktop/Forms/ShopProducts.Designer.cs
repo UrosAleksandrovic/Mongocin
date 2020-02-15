@@ -37,15 +37,16 @@
             this.addProductButton = new System.Windows.Forms.Button();
             this.deleteProductButton = new System.Windows.Forms.Button();
             this.listViewProducts = new System.Windows.Forms.ListView();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // Quantity
             // 
             this.Quantity.AutoSize = true;
-            this.Quantity.Location = new System.Drawing.Point(722, 456);
+            this.Quantity.Location = new System.Drawing.Point(677, 454);
             this.Quantity.Name = "Quantity";
             this.Quantity.Size = new System.Drawing.Size(61, 17);
             this.Quantity.TabIndex = 21;
@@ -63,7 +64,7 @@
             // 
             // textBoxQuantity
             // 
-            this.textBoxQuantity.Location = new System.Drawing.Point(811, 451);
+            this.textBoxQuantity.Location = new System.Drawing.Point(772, 458);
             this.textBoxQuantity.Name = "textBoxQuantity";
             this.textBoxQuantity.Size = new System.Drawing.Size(100, 22);
             this.textBoxQuantity.TabIndex = 19;
@@ -71,9 +72,10 @@
             // listViewAllProducts
             // 
             this.listViewAllProducts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader5});
             this.listViewAllProducts.HideSelection = false;
-            this.listViewAllProducts.Location = new System.Drawing.Point(725, 58);
+            this.listViewAllProducts.Location = new System.Drawing.Point(702, 58);
             this.listViewAllProducts.Name = "listViewAllProducts";
             this.listViewAllProducts.Size = new System.Drawing.Size(195, 339);
             this.listViewAllProducts.TabIndex = 18;
@@ -82,48 +84,59 @@
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Name";
+            this.columnHeader4.Text = "Id";
             // 
             // editProductButton
             // 
-            this.editProductButton.Location = new System.Drawing.Point(111, 449);
+            this.editProductButton.Location = new System.Drawing.Point(407, 557);
             this.editProductButton.Name = "editProductButton";
             this.editProductButton.Size = new System.Drawing.Size(96, 41);
             this.editProductButton.TabIndex = 17;
-            this.editProductButton.Text = "Edit";
+            this.editProductButton.Text = "Save";
             this.editProductButton.UseVisualStyleBackColor = true;
+            this.editProductButton.Click += new System.EventHandler(this.editProductButton_Click);
             // 
             // addProductButton
             // 
-            this.addProductButton.Location = new System.Drawing.Point(776, 525);
+            this.addProductButton.Location = new System.Drawing.Point(772, 506);
             this.addProductButton.Name = "addProductButton";
             this.addProductButton.Size = new System.Drawing.Size(96, 41);
             this.addProductButton.TabIndex = 16;
             this.addProductButton.Text = "Add";
             this.addProductButton.UseVisualStyleBackColor = true;
+            this.addProductButton.Click += new System.EventHandler(this.addProductButton_Click);
             // 
             // deleteProductButton
             // 
-            this.deleteProductButton.Location = new System.Drawing.Point(339, 451);
+            this.deleteProductButton.Location = new System.Drawing.Point(174, 434);
             this.deleteProductButton.Name = "deleteProductButton";
             this.deleteProductButton.Size = new System.Drawing.Size(96, 37);
             this.deleteProductButton.TabIndex = 15;
             this.deleteProductButton.Text = "Delete";
             this.deleteProductButton.UseVisualStyleBackColor = true;
+            this.deleteProductButton.Click += new System.EventHandler(this.deleteProductButton_Click);
             // 
             // listViewProducts
             // 
             this.listViewProducts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
             this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
+            this.columnHeader2});
             this.listViewProducts.HideSelection = false;
-            this.listViewProducts.Location = new System.Drawing.Point(102, 58);
+            this.listViewProducts.Location = new System.Drawing.Point(59, 42);
             this.listViewProducts.Name = "listViewProducts";
             this.listViewProducts.Size = new System.Drawing.Size(376, 339);
             this.listViewProducts.TabIndex = 14;
             this.listViewProducts.UseCompatibleStateImageBehavior = false;
             this.listViewProducts.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Name";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "ID";
             // 
             // columnHeader1
             // 
@@ -132,11 +145,6 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Quantity";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Description";
-            this.columnHeader3.Width = 223;
             // 
             // ShopProducts
             // 
@@ -170,8 +178,9 @@
         private System.Windows.Forms.Button addProductButton;
         private System.Windows.Forms.Button deleteProductButton;
         private System.Windows.Forms.ListView listViewProducts;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }
