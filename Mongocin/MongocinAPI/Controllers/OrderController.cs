@@ -89,6 +89,40 @@ namespace MongocinAPI.Controllers
             return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
 
+        [HttpPut]
+        [Route("Order/ChangeState")]
+        public ActionResult ChangeState(string OrderId, StateEnum NewState)
+        {
+            if (OrderId == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+
+            if (_orderService.ChangeState(OrderId, NewState))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        [HttpGet]
+        [Route("Order/GetAllOrdersOfWarehouse/{WarehouseId}")]
+        public ActionResult GetAllOrdersOfWarehouse(string WarehouseId)
+        {
+            List<Order> Result = _orderService.GetAllOrdersOfOneWarehouse(WarehouseId);
+            if (Result == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            JsonResult response = new JsonResult();
+            response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            response.Data = Result;
+            return response;
+        }
+
+        [HttpPost]
+        [Route("Order/ProcessOrder")]
+        public ActionResult ProcessOrder(string OrderId)
+        {
+            if (_orderService.ProcessOrder(OrderId))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+        }
+
         public ActionResult Index => View();
 
         #endregion

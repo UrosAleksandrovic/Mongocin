@@ -111,6 +111,34 @@ namespace MongocinAPI.Services
             }
         }
 
+        public bool AddProduct(string WarehouseId, string ProductId, int Quantity)
+        {
+            try
+            {
+                if (_warehouseCollection == null || WarehouseExists(WarehouseId) == false)
+                    return false;
+                Warehouse Warehouse = GetWarehouse(WarehouseId);
+
+                if (Warehouse.Products == null)
+                    Warehouse.Products = new List<ProductListElement>();
+
+                ProductListElement ProductToChange = Warehouse.Products.Find(SingleProduct => SingleProduct.ProductId == ProductId);
+
+                if (ProductToChange != null)
+                    ProductToChange.ProductQuantity += Quantity;
+                else
+                    Warehouse.Products.Add(new ProductListElement(ProductId, Quantity));
+
+                UpdateDefinition<Warehouse> UpdateWarehouse = Builders<Warehouse>.Update.Set("Products", Warehouse.Products);
+                _warehouseCollection.UpdateOne(Builders<Warehouse>.Filter.Eq("Id", Warehouse.Id), UpdateWarehouse);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
         public bool DeleteProduct(string WarehouseId, string ProductId, int Quantity)
         {
             try
@@ -160,7 +188,6 @@ namespace MongocinAPI.Services
             }
         }
 
-    
         public bool CheckProductQuantity(string WarehouseId, string ProductId, int ProductQuantity)
         {
             if (!WarehouseExists(WarehouseId))

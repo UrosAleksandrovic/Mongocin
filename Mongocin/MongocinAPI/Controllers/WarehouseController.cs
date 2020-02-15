@@ -85,7 +85,7 @@ namespace MongocinAPI.Controllers
         }
 
         [HttpGet]
-        [Route("Shop/ReturnAllProductsOfWarehouse")]
+        [Route("Warehouse/ReturnAllProductsOfWarehouse")]
         public ActionResult ReturnAllProductsOfWarehouse(string WarehouseId)
         {
             List<Product> listOfProducts = new List<Product>();
@@ -95,6 +95,15 @@ namespace MongocinAPI.Controllers
             Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             Response.Data = listOfProducts;
             return Response;
+        }
+
+        [HttpPut]
+        [Route("Warehouse/AddProduct")]
+        public ActionResult AddProduct(string WarehouseId, string ProductId, int Quantity)
+        {
+            if (_warehouseService.AddProduct(WarehouseId, ProductId, Quantity))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
 
         public ActionResult Index => View();
