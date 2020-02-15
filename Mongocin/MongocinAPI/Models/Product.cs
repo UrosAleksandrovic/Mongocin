@@ -20,6 +20,6 @@ namespace MongocinAPI.Models
         public string Description { get; set; }
 
         [BsonElement("Price")]
-        public string Price { get; set; }
+        public double Price { get; set; }
     }
 }

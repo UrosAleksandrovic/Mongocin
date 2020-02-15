@@ -77,13 +77,54 @@ namespace MongocinAPI.Controllers
         {
             if (ShopToEdit.Address == null
                || ShopToEdit.Products == null
-               || ShopToEdit.Name == null
-               || ShopToEdit.Receipts == null)
+               || ShopToEdit.Name == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 
             if (_shopService.UpdateShop(ShopToEdit))
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
             return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        [HttpPut]
+        [Route("Shop/AddProduct")]
+        public ActionResult AddProduct(string ShopId, string ProductId, int Quantity)
+        {
+            if (_shopService.AddProduct(ShopId, ProductId, Quantity))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        [HttpDelete]
+        [Route("Shop/DeleteProduct")]
+        public ActionResult DeleteProduct(string ShopId, string ProductId, int Quantity)
+        {
+            if (_shopService.DeleteProduct(ShopId, ProductId, Quantity))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        [HttpGet]
+        [Route("Shop/CalculateFullValueOfAllProducts")]
+        public ActionResult CalculateFullValueOfAllProducts(string ShopId)
+        {
+            double? FullValue = _shopService.CalculateFullValueOfAllProducts(ShopId);
+            JsonResult Response = new JsonResult();
+            Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            Response.Data = FullValue;
+            return Response;
+        }
+
+        [HttpGet]
+        [Route("Shop/ReturnAllProductsOfShop")]
+        public ActionResult ReturnAllProductsOfShop(string ShopId)
+        {
+            List<Product> listOfProducts = new List<Product>();
+            listOfProducts = _shopService.ReturnAllProductsOfShop(ShopId);
+
+            JsonResult Response = new JsonResult();
+            Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            Response.Data = listOfProducts;
+            return Response;
         }
 
         public ActionResult Index => View();

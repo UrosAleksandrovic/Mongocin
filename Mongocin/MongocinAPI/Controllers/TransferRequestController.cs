@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using MongocinAPI.Models;
 using MongocinAPI.Services;
 
@@ -69,6 +70,32 @@ namespace MongocinAPI.Controllers
         }
 
         public ActionResult Index => View();
+
+        [HttpGet]
+        [Route("TransferRequest/GetAllTransfersOfShop/{ShopId}")]
+        public ActionResult GetAllTransferRequestsOfShop(string ShopId)
+        {
+            List<TransferRequest> result = _transferService.ReturnAllTransfersOfShop(ShopId);
+            if (result == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            JsonResult response = new JsonResult();
+            response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            response.Data = result;
+            return response;
+        }
+
+        [HttpGet]
+        [Route("TransferRequest/GetAllTransfersOfWarehouse/{WarehouseId}")]
+        public ActionResult GetAllTransferRequestsOfWarehouse(string WarehouseId)
+        {
+            List<TransferRequest> result = _transferService.ReturnAllTransfersOfWarehouse(WarehouseId);
+            if (result == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            JsonResult response = new JsonResult();
+            response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            response.Data = result;
+            return response;
+        }
 
         #endregion
     }

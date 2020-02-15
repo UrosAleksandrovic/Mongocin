@@ -1,6 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongocinAPI.Models
 {
@@ -9,6 +8,7 @@ namespace MongocinAPI.Models
         #region Attributes
 
         [BsonElement("ShopId")]
+        [BsonRepresentation(BsonType.ObjectId)]
         private string _shopId;
 
         #endregion
@@ -19,10 +19,9 @@ namespace MongocinAPI.Models
         public string ShopId
         {
             get { return _shopId; }
-            private set { _shopId = value; }
+            set { _shopId = value; }
         }
 
         #endregion
-
     }
 }

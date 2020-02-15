@@ -93,5 +93,35 @@ namespace MongocinAPI.Services
             }
 
         }
+
+        public List<TransferRequest> ReturnAllTransfersOfShop(string ShopId)
+        {
+            try
+            {
+                List<TransferRequest> listOfTransfers;
+                FilterDefinition<TransferRequest> Filter = Builders<TransferRequest>.Filter.Eq("ShopId", new MongoDB.Bson.ObjectId(ShopId));
+                listOfTransfers = _transferRequestCollection.Find<TransferRequest>(Filter).ToList();
+                return listOfTransfers;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<TransferRequest> ReturnAllTransfersOfWarehouse(string WarehouseId)
+        {
+            try
+            {
+                List<TransferRequest> listOfTransfers;
+                FilterDefinition<TransferRequest> Filter = Builders<TransferRequest>.Filter.Eq("StorageId", new MongoDB.Bson.ObjectId(WarehouseId));
+                listOfTransfers = _transferRequestCollection.Find<TransferRequest>(Filter).ToList();
+                return listOfTransfers;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

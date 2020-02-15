@@ -86,6 +86,19 @@ namespace MongocinAPI.Controllers
             return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
         }
 
+        [HttpGet]
+        [Route("Receipt/GetAllReceiptsOfShop/{ShopId}")]
+        public ActionResult GetAllReceiptsOfShop(string ShopId)
+        {
+            List<Receipt> result = _receiptService.ReturnAllReceiptsOfShop(ShopId);
+            if (result == null)
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            JsonResult response = new JsonResult();
+            response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            response.Data = result;
+            return response;
+        }
+
         public ActionResult Index => View();
 
         #endregion
