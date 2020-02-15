@@ -10,8 +10,6 @@ namespace MongocinAPI.Models
 {
     public class Shop : Storehouse
     {
-        [BsonElement("Receipts")]
-        public List<string> Receipts { get; set; }
 
     }
 }

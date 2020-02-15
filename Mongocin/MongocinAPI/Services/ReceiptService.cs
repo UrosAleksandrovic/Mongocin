@@ -42,6 +42,7 @@ namespace MongocinAPI.Services
                 if (_receiptCollection == null)
                     return false;
 
+                AddFullCost(Receipt);
                 Receipt.Id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                 Receipt prevReceipt = GetReceipt(Receipt.Id.ToString());
                 if (prevReceipt == null)
@@ -111,5 +112,40 @@ namespace MongocinAPI.Services
             }
         }
 
+        public List<Receipt> ReturnAllReceiptsOfShop(string ShopId)
+        {
+            try
+            {
+                List<Receipt> listOfReceipts;
+                FilterDefinition<Receipt> Filter = Builders<Receipt>.Filter.Eq("ShopId", new MongoDB.Bson.ObjectId(ShopId));
+                listOfReceipts = _receiptCollection.Find<Receipt>(Filter).ToList();
+                return listOfReceipts;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public double CalculateFullCost(List<ProductListElement> ReceiptList)
+        {
+            ProductService Products = new ProductService();
+            double Cost = 0;
+            foreach (ProductListElement SingleProduct in ReceiptList)
+            {
+                Product FromDatabase = Products.GetProduct(SingleProduct.ProductId);
+                if (FromDatabase != null)
+                    Cost += FromDatabase.Price * SingleProduct.ProductQuantity;
+            }
+            return Cost;
+        }
+   
+        public void AddFullCost(Receipt ReceiptToCalculate)
+        {
+            if (ReceiptToCalculate.ProductList != null)
+                ReceiptToCalculate.FullCost = CalculateFullCost(ReceiptToCalculate.ProductList);
+            else
+                ReceiptToCalculate.FullCost = 0;
+        }
     }
 }

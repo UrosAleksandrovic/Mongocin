@@ -15,7 +15,7 @@ namespace MongocinAPI.Models
         private double _fullCost;
 
         [BsonElement("Products")]
-        private ProductListElement[] _productList;
+        private List<ProductListElement> _productList;
 
         [BsonElement("Date")]
         private DateTime _dateOfBill;
@@ -31,23 +31,12 @@ namespace MongocinAPI.Models
         [BsonIgnore]
         public double FullCost
         {
-            get 
-            {/*
-                if (_fullCost == default(double))
-                {
-                    _fullCost = 0;
-                    foreach (Product SingleProduct in _productList)
-                    {
-                        _fullCost += SingleProduct.Value;
-                    }
-                }*/
-                return _fullCost;
-            }
+            get { return _fullCost; }
             set { _fullCost = value; }
         }
 
         [BsonIgnore]
-        public ProductListElement[] ProductList
+        public List<ProductListElement> ProductList
         {
             get { return _productList; }
             set { _productList = value; }
@@ -60,26 +49,6 @@ namespace MongocinAPI.Models
             set { _dateOfBill = value; }
         }
 
-        #endregion
-
-        #region Methodes
-
-        /* public void AddProduct(Product NewProduct)
-         {
-             if(this._productList == null)
-                 _productList = new List<Product>();
-
-             this._productList.Add(NewProduct);
-             FullCost += NewProduct.Value;
-         }
-
-         public void DeleteProduct(string ProductId)
-         {
-             if (this._productList == null)
-                 return;
-             this._productList.RemoveAt(this._productList.FindIndex(SingleProduct => SingleProduct.ID == ProductId));
-         }
-         */
         #endregion
 
     }
