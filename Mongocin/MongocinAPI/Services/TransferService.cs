@@ -19,6 +19,23 @@ namespace MongocinAPI.Services
                 (ConfigurationManager.AppSettings["RequestCollectionName"]);
         }
 
+        public List<TransferRequest> GetTransfers(int numberOfWarehouses)
+        {
+            try
+            {
+                List<TransferRequest> listofTransfers = new List<TransferRequest>();
+                listofTransfers = _transferRequestCollection.Find<TransferRequest>(Builders<TransferRequest>.Filter.Empty).ToList();
+                if (listofTransfers.Count < numberOfWarehouses || numberOfWarehouses == 0)
+                    return listofTransfers;
+                else
+                    return listofTransfers.GetRange(0, numberOfWarehouses);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public TransferRequest GetTransferRequest(string transferRequestId)
         {
             try

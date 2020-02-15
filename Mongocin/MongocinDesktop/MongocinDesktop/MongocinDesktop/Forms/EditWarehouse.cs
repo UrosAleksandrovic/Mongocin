@@ -49,9 +49,48 @@ namespace MongocinDesktop.Forms
         private void SaveProduct()
         {
             WebRequest webRequest = WebRequest.Create("https://localhost:44382/warehouse/Edit/");
-            webRequest.Method = "POST";
+            webRequest.Method = "PUT";
             webRequest.ContentType = "application/json";
-            string postData = "{\"Name\":\"" + _wareHouse.Name + "\", \"Adress\":\"" + _wareHouse.Address + "\", \"Id\":\"" + _wareHouse.Id + "\"}";
+            List<ProductListElement> myProducts = _wareHouse.Products;
+            string productString = "[";
+           
+            string data;
+            for(int i=0;i< myProducts.Count;i++)
+            {
+                if(i != myProducts.Count-1)
+                  data = "{\"ProductId\":\"" + myProducts[i].ProductId + "\", \"ProductQuantity\":\"" + myProducts[i].ProductQuantity + "\"},";
+                else
+                  data = "{\"ProductId\":\"" + myProducts[i].ProductId + "\", \"ProductQuantity\":\"" + myProducts[i].ProductQuantity + "\"}";
+                
+                productString = productString + data;
+
+            }
+            productString = productString + "]";
+
+
+
+
+            List<string> myOrders = _wareHouse.Orders;
+            string orderString = "[";
+
+            string orderData;
+            if (myOrders != null)
+            {
+                for (int i = 0; i < myOrders.Count; i++)
+                {
+                    if (i != myProducts.Count - 1)
+                        orderData = "\"" + myOrders[i] + "\",";
+                    else
+                        orderData = "\"" + myOrders[i] + "\"";
+
+                    orderString = orderString + orderData;
+
+                }
+            }
+
+            orderString = orderString + "]";
+
+            string postData = "{\"Name\":\"" + _wareHouse.Name + "\", \"Address\":\"" + _wareHouse.Address + "\", \"Id\":\"" + _wareHouse.Id + "\", \"Orders\":" + orderString + ", \"Products\":"+productString+"}";
             using (var streamW = new StreamWriter(webRequest.GetRequestStream()))
             {
                 streamW.Write(postData);

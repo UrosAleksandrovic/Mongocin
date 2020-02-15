@@ -74,9 +74,10 @@ namespace MongocinAPI.Controllers
         public ActionResult Edit(Warehouse WarehouseToEdit)
         {
             if (WarehouseToEdit.Address == null
-               || WarehouseToEdit.Products == null
+               //|| WarehouseToEdit.Products == null
                || WarehouseToEdit.Name == null
-               || WarehouseToEdit.Orders == null)
+               //|| WarehouseToEdit.Orders == null
+               )
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 
             if (_warehouseService.UpdateWarehouse(WarehouseToEdit))

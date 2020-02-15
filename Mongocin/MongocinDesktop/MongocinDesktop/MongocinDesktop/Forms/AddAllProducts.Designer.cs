@@ -111,6 +111,7 @@
             this.Controls.Add(this.textBoxName);
             this.Name = "AddAllProducts";
             this.Text = "AddAllProducts";
+            this.Load += new System.EventHandler(this.AddAllProducts_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

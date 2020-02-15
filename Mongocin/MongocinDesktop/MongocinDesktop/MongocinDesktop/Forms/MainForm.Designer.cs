@@ -78,10 +78,12 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Name";
+            this.columnHeader2.Width = 110;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Id";
+            this.columnHeader4.Width = 78;
             // 
             // label1
             // 

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using MongocinAPI.Models;
 using MongocinAPI.Services;
 
@@ -22,7 +23,19 @@ namespace MongocinAPI.Controllers
         #endregion
 
         #region Actions
-
+        [HttpGet]
+        [Route("TransferRequest/GetAllRequests/{NumberOfRequests}")]
+        public ActionResult GetAllRequests(string NumberOfRequests)
+        {
+            int RequestedNumber;
+            if (!int.TryParse(NumberOfRequests, out RequestedNumber))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            List<TransferRequest> listOfTransfers = _transferService.GetTransfers(RequestedNumber);
+            JsonResult Response = new JsonResult();
+            Response.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            Response.Data = listOfTransfers;
+            return Response;
+        }
         [HttpGet]
         public ActionResult Get(string Id)
         {

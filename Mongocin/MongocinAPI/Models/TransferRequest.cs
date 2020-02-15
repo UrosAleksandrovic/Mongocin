@@ -10,49 +10,18 @@ namespace MongocinAPI.Models
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        private string _id;
+        public string Id { get; set; }
 
         [BsonElement("ShopId")]
-        private string _shopId;
+        public string ShopId { get; set; }
 
         [BsonElement("StorageId")]
-        private string _storageId;
+        public string StorageId { get; set; }
 
         [BsonElement("ProductList")]
-        private ProductListElement[] _productList;
+        public ProductListElement[] ProductList { get; set; }
 
-        #endregion
-
-        #region Properties
-
-        [BsonIgnore]
-        public string Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-
-        [BsonIgnore]
-        public string ShopId
-        {
-            get { return _shopId; }
-            private set { _shopId = value; }
-        }
-
-        [BsonIgnore]
-        public string StorageId
-        {
-            get { return _storageId; }
-            private set { _storageId = value; }
-        }
-
-        [BsonIgnore]
-        public ProductListElement[] ProductList
-        {
-            get { return _productList; }
-            private set { _productList = value; }
-        }
-
+       
         [BsonElement("State")]
         public StateEnum State { get; set; }
 

@@ -58,10 +58,49 @@ namespace MongocinDesktop.Forms
         }
         private void SaveProduct()
         {
-            WebRequest webRequest = WebRequest.Create("https://localhost:44382/shop/Edit/");
-            webRequest.Method = "POST";
+            WebRequest webRequest = WebRequest.Create("https://localhost:44382/Shop/Edit/");
+            webRequest.Method = "PUT";
             webRequest.ContentType = "application/json";
-            string postData = "{\"Name\":\"" + _shop.Name + "\", \"Adress\":\"" + _shop.Address + "\", \"Id\":\"" + _shop.Id + "\"}";
+            List<ProductListElement> myProducts = _shop.Products;
+            string productString = "[";
+
+            string data;
+            for (int i = 0; i < myProducts.Count; i++)
+            {
+                if (i != myProducts.Count - 1)
+                    data = "{\"ProductId\":\"" + myProducts[i].ProductId + "\", \"ProductQuantity\":\"" + myProducts[i].ProductQuantity + "\"},";
+                else
+                    data = "{\"ProductId\":\"" + myProducts[i].ProductId + "\", \"ProductQuantity\":\"" + myProducts[i].ProductQuantity + "\"}";
+
+                productString = productString + data;
+
+            }
+            productString = productString + "]";
+
+
+
+            List<string> myReceipts = _shop.Receipts;
+            string receiptString = "[";
+
+
+            string orderData;
+            if (myReceipts != null)
+            {
+                for (int i = 0; i < myReceipts.Count; i++)
+                {
+                    if (i != myProducts.Count - 1)
+                        orderData = "\"" + myReceipts[i] + "\",";
+                    else
+                        orderData = "\"" + myReceipts[i] + "\"";
+
+                    receiptString = receiptString + orderData;
+
+                }
+            }
+
+            receiptString = receiptString + "]";
+
+            string postData = "{\"Name\":\"" + _shop.Name + "\", \"Address\":\"" + _shop.Address + "\", \"Id\":\"" + _shop.Id + "\", \"Receipts\":" + receiptString + ", \"Products\":" + productString + "}";
             using (var streamW = new StreamWriter(webRequest.GetRequestStream()))
             {
                 streamW.Write(postData);
@@ -71,6 +110,20 @@ namespace MongocinDesktop.Forms
 
                 var response = (HttpWebResponse)webRequest.GetResponse();
             }
+
+        }
+
+        private void buttonTransfer_Click(object sender, EventArgs e)
+        {
+            TransferRequest transferRequest = new TransferRequest(_shop.Id);
+            transferRequest.ShowDialog();
+        }
+
+        private void buttonViewRequest_Click(object sender, EventArgs e)
+        {
+            ViewTransferRequest transferRequest = new ViewTransferRequest(_shop);
+            transferRequest.ShowDialog();
+
         }
     }
 }

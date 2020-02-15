@@ -27,7 +27,7 @@ namespace MongocinAPI.Controllers
         #region Actions
 
         [HttpGet]
-        [Route("Shop/GetAllShop/{NumberOfShop}")]
+        [Route("Shop/GetAllShop/{NumberOfShops}")]
         public ActionResult GetAllShops(string NumberOfShops)
         {
             int RequestedNumber;
@@ -76,9 +76,9 @@ namespace MongocinAPI.Controllers
         public ActionResult Edit(Shop ShopToEdit)
         {
             if (ShopToEdit.Address == null
-               || ShopToEdit.Products == null
+              // || ShopToEdit.Products == null
                || ShopToEdit.Name == null
-               || ShopToEdit.Receipts == null)
+               /*|| ShopToEdit.Receipts == null*/)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 
             if (_shopService.UpdateShop(ShopToEdit))

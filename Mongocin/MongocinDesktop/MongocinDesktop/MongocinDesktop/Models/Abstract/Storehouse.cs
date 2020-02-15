@@ -16,7 +16,7 @@ namespace MongocinDesktop.Models.Abstract
             public string Address { get; set; }
 
      
-            public List<Product> Products { get; set; }
+            public List<ProductListElement> Products { get; set; }
 
         
             public string Name { get; set; }
@@ -42,10 +42,10 @@ namespace MongocinDesktop.Models.Abstract
 
             #region Methodes
 
-            public void AddProduct(Product NewProduct)
+            public void AddProduct(ProductListElement NewProduct)
             {
                 if (this.Products == null)
-                Products = new List<Product>();
+                Products = new List<ProductListElement>();
 
                 this.Products.Add(NewProduct);
                 
@@ -55,7 +55,7 @@ namespace MongocinDesktop.Models.Abstract
             {
                 if (this.Products == null)
                     return;
-                this.Products.RemoveAt(this.Products.FindIndex(SingleProduct => SingleProduct.Id == ProductId));
+                this.Products.RemoveAt(this.Products.FindIndex(SingleProduct => SingleProduct.ProductId == ProductId));
             }
 
             #endregion

@@ -17,7 +17,7 @@ namespace MongocinDesktop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AllProducts());
+            Application.Run(new MainForm());
         }
     }
 }

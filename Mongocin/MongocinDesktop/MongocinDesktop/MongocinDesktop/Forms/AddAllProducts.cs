@@ -40,7 +40,7 @@ namespace MongocinDesktop.Forms
 
         private void SaveProduct()
         {
-            WebRequest webRequest = WebRequest.Create("https://localhost:44382/product/Create/");
+            WebRequest webRequest = WebRequest.Create("https://localhost:44382/Product/Create/");
             webRequest.Method = "POST";
             webRequest.ContentType = "application/json";
             string postData = "{\"Price\":\"" + _product.Price + "\", \"Name\":\"" + _product.Name + "\", \"Description\":\"" + _product.Description + "\"}";
@@ -53,6 +53,11 @@ namespace MongocinDesktop.Forms
 
                 var response = (HttpWebResponse)webRequest.GetResponse();
             }
+
+        }
+
+        private void AddAllProducts_Load(object sender, EventArgs e)
+        {
 
         }
     }

@@ -50,7 +50,7 @@ namespace MongocinDesktop.Forms
 
         private void GetAllProducts()
         {
-            var webRequest = WebRequest.Create("https://localhost:44382/product/") as HttpWebRequest;
+            var webRequest = WebRequest.Create("https://localhost:44382/Product/GetAllProducts/5") as HttpWebRequest;
             if (webRequest == null)
             {
                 return;
@@ -72,7 +72,7 @@ namespace MongocinDesktop.Forms
         }
         private void DeleteProduct(string id)
         {   
-            WebRequest webRequest = WebRequest.Create("https://localhost:44382/product/Delete/");
+            WebRequest webRequest = WebRequest.Create("https://localhost:44382/Product/Delete/");
             webRequest.Method = "POST";
             webRequest.ContentType = "application/json";
             string postData = "{\"Id\":\"" + id + "\"}";

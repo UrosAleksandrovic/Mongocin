@@ -30,12 +30,12 @@ namespace MongocinDesktop.Forms
             listViewProducts.Items.Clear();
             listViewAllProducts.Items.Clear();
 
-            foreach (Product op in _warehouse.Products)
+            foreach (ProductListElement op in _warehouse.Products)
             {
-                
+               /* 
                 ListViewItem item = new ListViewItem(new string[] { op.Name.ToString() });
 
-                listViewProducts.Items.Add(item);
+                listViewProducts.Items.Add(item);*/
             }
             listViewProducts.Refresh();
         }

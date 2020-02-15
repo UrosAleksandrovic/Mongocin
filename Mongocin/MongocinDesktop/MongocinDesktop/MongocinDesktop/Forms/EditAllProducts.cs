@@ -60,8 +60,8 @@ namespace MongocinDesktop.Forms
 
         private void SaveProduct()
         {
-            WebRequest webRequest = WebRequest.Create("https://localhost:44382/product/Edit/");
-            webRequest.Method = "POST";
+            WebRequest webRequest = WebRequest.Create("https://localhost:44382/Product/Edit/");
+            webRequest.Method = "PUT";
             webRequest.ContentType = "application/json";
             string postData = "{\"Price\":\"" + _product.Price + "\", \"Name\":\"" + _product.Name + "\", \"Description\":\"" + _product.Description + "\", \"Id\":\"" + _product.Id + "\"}";
             using (var streamW = new StreamWriter(webRequest.GetRequestStream()))

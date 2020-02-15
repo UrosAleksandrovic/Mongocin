@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using MongocinAPI.Models;
 using MongocinAPI.Services;
@@ -75,10 +76,15 @@ namespace MongocinAPI.Controllers
                 //     .Set("Price", product.Price)
                 //     .Set("Description", product.Description);
                 // var _result = _productCollection.UpdateOne(_filter, _update);
-            if (_productService.DeleteProduct(Id))
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
-            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-        }
+                if (_productService.DeleteProduct(Id))
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            catch(Exception ex)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+         }
 
         [HttpPut]
         public ActionResult Edit(Product ProductToEdit)

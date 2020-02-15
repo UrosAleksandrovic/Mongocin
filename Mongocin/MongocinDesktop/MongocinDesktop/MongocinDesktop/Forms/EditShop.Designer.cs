@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonTransfer = new System.Windows.Forms.Button();
+            this.buttonViewRequest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // shopNameTextBox
@@ -54,7 +55,7 @@
             // 
             // saveShopChangesButton
             // 
-            this.saveShopChangesButton.Location = new System.Drawing.Point(91, 285);
+            this.saveShopChangesButton.Location = new System.Drawing.Point(91, 262);
             this.saveShopChangesButton.Name = "saveShopChangesButton";
             this.saveShopChangesButton.Size = new System.Drawing.Size(201, 43);
             this.saveShopChangesButton.TabIndex = 2;
@@ -64,7 +65,7 @@
             // 
             // viewProductsButton
             // 
-            this.viewProductsButton.Location = new System.Drawing.Point(91, 369);
+            this.viewProductsButton.Location = new System.Drawing.Point(91, 349);
             this.viewProductsButton.Name = "viewProductsButton";
             this.viewProductsButton.Size = new System.Drawing.Size(201, 43);
             this.viewProductsButton.TabIndex = 3;
@@ -74,7 +75,7 @@
             // 
             // viewReceiptsButton
             // 
-            this.viewReceiptsButton.Location = new System.Drawing.Point(91, 462);
+            this.viewReceiptsButton.Location = new System.Drawing.Point(91, 432);
             this.viewReceiptsButton.Name = "viewReceiptsButton";
             this.viewReceiptsButton.Size = new System.Drawing.Size(201, 43);
             this.viewReceiptsButton.TabIndex = 4;
@@ -102,18 +103,30 @@
             // 
             // buttonTransfer
             // 
-            this.buttonTransfer.Location = new System.Drawing.Point(91, 542);
+            this.buttonTransfer.Location = new System.Drawing.Point(91, 513);
             this.buttonTransfer.Name = "buttonTransfer";
             this.buttonTransfer.Size = new System.Drawing.Size(201, 43);
             this.buttonTransfer.TabIndex = 7;
             this.buttonTransfer.Text = "Create transfer request";
             this.buttonTransfer.UseVisualStyleBackColor = true;
+            this.buttonTransfer.Click += new System.EventHandler(this.buttonTransfer_Click);
+            // 
+            // buttonViewRequest
+            // 
+            this.buttonViewRequest.Location = new System.Drawing.Point(91, 583);
+            this.buttonViewRequest.Name = "buttonViewRequest";
+            this.buttonViewRequest.Size = new System.Drawing.Size(201, 43);
+            this.buttonViewRequest.TabIndex = 8;
+            this.buttonViewRequest.Text = "View transfer request";
+            this.buttonViewRequest.UseVisualStyleBackColor = true;
+            this.buttonViewRequest.Click += new System.EventHandler(this.buttonViewRequest_Click);
             // 
             // EditShop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(403, 638);
+            this.Controls.Add(this.buttonViewRequest);
             this.Controls.Add(this.buttonTransfer);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -140,5 +153,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonTransfer;
+        private System.Windows.Forms.Button buttonViewRequest;
     }
 }

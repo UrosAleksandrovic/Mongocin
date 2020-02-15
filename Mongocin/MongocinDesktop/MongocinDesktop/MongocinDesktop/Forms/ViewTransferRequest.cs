@@ -14,41 +14,30 @@ using System.Windows.Forms;
 
 namespace MongocinDesktop.Forms
 {
-    public partial class ShopProducts : Form
+    public partial class ViewTransferRequest : Form
     {
         Shop shop;
-
-        List<Product> _allProducts = new List<Product>();
-        public ShopProducts(Shop shop)
+        List<TransferRequest> transfers = new List<TransferRequest>();
+        string selectedTransferID;
+        public ViewTransferRequest(Shop shop)
         {
             InitializeComponent();
             this.shop = shop;
-
         }
 
-        private void ShopProducts_Load(object sender, EventArgs e)
+        private void ViewTransferRequest_Load(object sender, EventArgs e)
         {
             PopulateInfos();
         }
 
         private void PopulateInfos()
         {
-            GetAllProducts();
-            listViewProducts.Items.Clear();
-            listViewAllProducts.Items.Clear();
+            GetAllTransfers();
 
-            foreach (ProductListElement op in shop.Products)
-            {/*
-
-                ListViewItem item = new ListViewItem(new string[] { op.Name.ToString() });
-
-                listViewProducts.Items.Add(item);*/
-            }
-            listViewProducts.Refresh();
         }
-        private void GetAllProducts()
+        private void GetAllTransfers()
         {
-            var webRequest = WebRequest.Create("https://localhost:44382/product/") as HttpWebRequest;
+            var webRequest = WebRequest.Create("https://localhost:44382/TransferRequest/GetAllRequests/5") as HttpWebRequest;
             if (webRequest == null)
             {
                 return;
@@ -62,7 +51,7 @@ namespace MongocinDesktop.Forms
                 using (var sr = new StreamReader(s))
                 {
                     var contributorsAsJson = sr.ReadToEnd();
-                    _allProducts = JsonConvert.DeserializeObject<List<Product>>(contributorsAsJson);
+                    transfers = JsonConvert.DeserializeObject<List<TransferRequest>>(contributorsAsJson);
 
 
                 }
