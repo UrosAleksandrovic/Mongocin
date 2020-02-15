@@ -5,8 +5,6 @@ using MongocinAPI.Services;
 
 namespace MongocinAPI.Controllers
 {
-
-
     public class ShopController : Controller
     {
         #region Attributes

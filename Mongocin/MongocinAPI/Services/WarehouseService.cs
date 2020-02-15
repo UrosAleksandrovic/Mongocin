@@ -110,5 +110,83 @@ namespace MongocinAPI.Services
                 return null;
             }
         }
+
+        public bool DeleteProduct(string WarehouseId, string ProductId, int Quantity)
+        {
+            try
+            {
+                if (_warehouseCollection == null || !WarehouseExists(WarehouseId))
+                    return false;
+
+                Warehouse Warehouse = GetWarehouse(WarehouseId);
+
+                if (Warehouse.Products == null)
+                    return false;
+
+                ProductListElement ProductToDelete = Warehouse.Products.Find(product => product.ProductId == ProductId);
+
+                if (ProductToDelete == null || Quantity > ProductToDelete.ProductQuantity)
+                    return false;
+
+                ProductToDelete.ProductQuantity -= Quantity;
+
+                if (ProductToDelete.ProductQuantity == 0)
+                    Warehouse.Products.Remove(ProductToDelete);
+
+                UpdateDefinition<Warehouse> UpdateWarehouse = Builders<Warehouse>.Update.Set("Products", Warehouse.Products);
+                _warehouseCollection.UpdateOne(Builders<Warehouse>.Filter.Eq("Id", Warehouse.Id.ToString()), UpdateWarehouse);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool WarehouseExists(string WarehouseId)
+        {
+            try
+            {
+                FilterDefinition<Warehouse> Filer = Builders<Warehouse>.Filter.Eq("Id", WarehouseId);
+                List<Warehouse> Results = _warehouseCollection.Find(Filer).ToList();
+                if (Results.Count == 0)
+                    return false;
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+    
+        public bool CheckProductQuantity(string WarehouseId, string ProductId, int ProductQuantity)
+        {
+            if (!WarehouseExists(WarehouseId))
+                return false;
+
+            Warehouse TargetedWarehouse = GetWarehouse(WarehouseId);
+            ProductListElement TargetedProduct = TargetedWarehouse.Products.Find(SingleProduct => SingleProduct.ProductId == ProductId);
+            if (TargetedProduct == null)
+                return false;
+            else if (TargetedProduct.ProductQuantity > ProductQuantity)
+                return true;
+
+            return false;
+        }
+
+        public List<Product> ReturnAllProductsOfWarehouse(string WarehouseId)
+        {
+            List<Product> listOfProducts = new List<Product>();
+            Warehouse Warehouse = GetWarehouse(WarehouseId);
+            if (Warehouse == null)
+                return null;
+            ProductService productService = new ProductService();
+
+            foreach (ProductListElement singleElement in Warehouse.Products)
+                listOfProducts.Add(productService.GetProduct(singleElement.ProductId));
+            return listOfProducts;
+        }
     }
 }

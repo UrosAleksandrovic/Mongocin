@@ -97,6 +97,15 @@ namespace MongocinAPI.Controllers
             return response;
         }
 
+        [HttpPost]
+        [Route("TransferRequest/DoTheRequest")]
+        public ActionResult DoTheRequest(string RequestId)
+        {
+            if (_transferService.DoTheTransfer(RequestId))
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+        }
+
         #endregion
     }
 }

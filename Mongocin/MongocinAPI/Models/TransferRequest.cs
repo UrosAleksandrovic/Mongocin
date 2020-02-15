@@ -8,10 +8,6 @@ namespace MongocinAPI.Models
     {
         #region Attributes
 
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        private string _id;
-
         [BsonElement("ShopId")]
         private string _shopId;
 
@@ -25,11 +21,11 @@ namespace MongocinAPI.Models
 
         #region Properties
 
-        [BsonIgnore]
-        public string Id
-        {
-            get { return _id; }
-            set { _id = value; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id {
+            get;
+            set;
         }
 
         [BsonIgnore]

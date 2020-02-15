@@ -9,8 +9,15 @@ namespace MongocinAPI.Services
 {
     public class TransferService
     {
+
+        #region Attributes
+
         private MongoDBContext _dbContext;
         private IMongoCollection<TransferRequest> _transferRequestCollection;
+
+        #endregion
+
+        #region Constructors
 
         public TransferService()
         {
@@ -19,11 +26,16 @@ namespace MongocinAPI.Services
                 (ConfigurationManager.AppSettings["RequestCollectionName"]);
         }
 
+        #endregion
+
+        #region Methodes
+
         public TransferRequest GetTransferRequest(string transferRequestId)
         {
             try
             {
-                FilterDefinition<TransferRequest> Filer = Builders<TransferRequest>.Filter.Eq("Id", transferRequestId);
+                FilterDefinition<TransferRequest> Filer = Builders<TransferRequest>.Filter
+                    .Eq("Id",transferRequestId);
                 List<TransferRequest> Results = _transferRequestCollection.Find(Filer).ToList();
                 if (Results.Count == 0)
                     return null;
@@ -56,7 +68,6 @@ namespace MongocinAPI.Services
             {
                 return false;
             }
-
         }
 
         public bool DeleteTransfer(string transferRequestId)
@@ -83,15 +94,14 @@ namespace MongocinAPI.Services
                 UpdateDefinition<TransferRequest> UpdateTransferRequest = Builders<TransferRequest>.Update
                     .Set("ShopId", transferRequest.ShopId)
                     .Set("StorageId", transferRequest.StorageId)
-                    .Set("State",transferRequest.State);
-                _transferRequestCollection.UpdateOne(Builders<TransferRequest>.Filter.Eq("Id", transferRequest.Id.ToString()), UpdateTransferRequest);
+                    .Set("State", transferRequest.State);
+                _transferRequestCollection.UpdateOne(Builders<TransferRequest>.Filter.Eq("Id", transferRequest.Id), UpdateTransferRequest);
                 return true;
             }
             catch
             {
                 return false;
             }
-
         }
 
         public List<TransferRequest> ReturnAllTransfersOfShop(string ShopId)
@@ -123,5 +133,52 @@ namespace MongocinAPI.Services
                 return null;
             }
         }
+
+        public bool DoTheTransfer(string TransferId)
+        {
+            ShopService ShopS = new ShopService();
+            WarehouseService WarehouseS = new WarehouseService();
+
+            TransferRequest TargetedRequest = GetTransferRequest(TransferId);
+            if (TargetedRequest == null)
+                return false;
+            if (!WarehouseS.WarehouseExists(TargetedRequest.StorageId) || !ShopS.ShopExists(TargetedRequest.ShopId))
+                return false;
+            if(!TargetedRequest.ProductList.All(SingleProduct=>
+                WarehouseS.CheckProductQuantity(TargetedRequest.StorageId, SingleProduct.ProductId, SingleProduct.ProductQuantity)))
+                return false;
+
+            foreach (ProductListElement SingleProduct in TargetedRequest.ProductList)
+            {
+                WarehouseS.DeleteProduct(TargetedRequest.StorageId, SingleProduct.ProductId, SingleProduct.ProductQuantity);
+                ShopS.AddProduct(TargetedRequest.ShopId, SingleProduct.ProductId, SingleProduct.ProductQuantity);
+            }
+            try
+            {
+                TargetedRequest.State = StateEnum.Delivered;
+                UpdateDefinition<TransferRequest> UpdateTransferRequest = Builders<TransferRequest>.Update
+                        .Set("State", TargetedRequest.State);
+                _transferRequestCollection.UpdateOne(Builders<TransferRequest>.Filter.Eq("Id", TargetedRequest.Id), UpdateTransferRequest);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
+        
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
     }
 }
