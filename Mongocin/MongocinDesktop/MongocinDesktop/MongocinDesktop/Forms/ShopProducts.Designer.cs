@@ -33,11 +33,11 @@
             this.textBoxQuantity = new System.Windows.Forms.TextBox();
             this.listViewAllProducts = new System.Windows.Forms.ListView();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.editProductButton = new System.Windows.Forms.Button();
             this.addProductButton = new System.Windows.Forms.Button();
             this.deleteProductButton = new System.Windows.Forms.Button();
             this.listViewProducts = new System.Windows.Forms.ListView();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -75,9 +75,9 @@
             this.columnHeader4,
             this.columnHeader5});
             this.listViewAllProducts.HideSelection = false;
-            this.listViewAllProducts.Location = new System.Drawing.Point(702, 58);
+            this.listViewAllProducts.Location = new System.Drawing.Point(653, 58);
             this.listViewAllProducts.Name = "listViewAllProducts";
-            this.listViewAllProducts.Size = new System.Drawing.Size(195, 339);
+            this.listViewAllProducts.Size = new System.Drawing.Size(321, 339);
             this.listViewAllProducts.TabIndex = 18;
             this.listViewAllProducts.UseCompatibleStateImageBehavior = false;
             this.listViewAllProducts.View = System.Windows.Forms.View.Details;
@@ -85,6 +85,12 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Id";
+            this.columnHeader4.Width = 111;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Name";
+            this.columnHeader5.Width = 144;
             // 
             // editProductButton
             // 
@@ -130,21 +136,20 @@
             this.listViewProducts.UseCompatibleStateImageBehavior = false;
             this.listViewProducts.View = System.Windows.Forms.View.Details;
             // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Name";
-            // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "ID";
+            this.columnHeader3.Width = 115;
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 157;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Quantity";
+            this.columnHeader2.Width = 129;
             // 
             // ShopProducts
             // 

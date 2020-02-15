@@ -14,6 +14,9 @@ namespace MongocinDesktop.Forms
     public partial class Orders : Form
     {
         Warehouse _warehouse;
+        string selectedReceipt;
+        List<Order> orders = new List<Order>();
+        List<ProductListElement> orderProducts = new List<ProductListElement>();
         public Orders(Warehouse warehouse)
         {
             InitializeComponent();
@@ -26,22 +29,24 @@ namespace MongocinDesktop.Forms
         }
 
         private void PopulateInfos()
-        {
-            listViewOrders.Items.Clear();
-
-            foreach (Order op in _warehouse.OrdersList)
+        {/*
+            GetShopReceipts();
+            listViewReceipts.Items.Clear();
+            foreach (Order op in orders)
             {
-                ListViewItem item = new ListViewItem(new string[] {op.CustomerName.ToString(), op.CustomerAddress.ToString(), op.DateOfBill.ToString(), op.State.ToString(), op.Id.ToString()});
+                ProductListElement pe = Warehouse.OrdersList.Find(x => x.ProductId == op.Id);
 
-                listViewOrders.Items.Add(item);
+                ListViewItem item = new ListViewItem(new string[] { op.FullCost.ToString(), op.DateOfBill.ToString(), op.Id.ToString() });
+
+                listViewReceipts.Items.Add(item);
             }
-            listViewOrders.Refresh();
+            listViewReceipts.Refresh();*/
         }
         private void editOrderButton_Click(object sender, EventArgs e)
         {
             try
             {
-                string id = listViewOrders.SelectedItems[0].SubItems[5].Text;
+                string id = listViewReceipts.SelectedItems[0].SubItems[5].Text;
                 Order myOrder = _warehouse.OrdersList.Find(item => item.Id == id);
 
                 EditOrder dialog = new EditOrder(myOrder);

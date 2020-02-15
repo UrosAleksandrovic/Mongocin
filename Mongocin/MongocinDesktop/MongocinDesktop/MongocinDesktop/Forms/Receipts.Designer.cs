@@ -31,16 +31,16 @@
             this.listViewReceipts = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonClose = new System.Windows.Forms.Button();
             this.deleteReceiptButton = new System.Windows.Forms.Button();
             this.viewProductsButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonCreateReceipt = new System.Windows.Forms.Button();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label2 = new System.Windows.Forms.Label();
+            this.buttonCreateReceipt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listViewReceipts
@@ -66,6 +66,10 @@
             // 
             this.columnHeader2.Text = "Date & time";
             this.columnHeader2.Width = 116;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "ID";
             // 
             // buttonClose
             // 
@@ -102,9 +106,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(152, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 17);
+            this.label1.Size = new System.Drawing.Size(100, 17);
             this.label1.TabIndex = 5;
-            this.label1.Text = "label1";
+            this.label1.Text = "Shop Receipts";
             // 
             // listView1
             // 
@@ -119,18 +123,22 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Id";
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Quantity";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(822, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 17);
+            this.label2.Size = new System.Drawing.Size(116, 17);
             this.label2.TabIndex = 7;
-            this.label2.Text = "label2";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "ID";
+            this.label2.Text = "Receipt Products";
             // 
             // buttonCreateReceipt
             // 
@@ -141,14 +149,6 @@
             this.buttonCreateReceipt.Text = "Create Receipt";
             this.buttonCreateReceipt.UseVisualStyleBackColor = true;
             this.buttonCreateReceipt.Click += new System.EventHandler(this.buttonCreateReceipt_Click);
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Id";
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Quantity";
             // 
             // Receipts
             // 

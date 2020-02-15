@@ -40,7 +40,7 @@
             // 
             // editProductButton
             // 
-            this.editProductButton.Location = new System.Drawing.Point(599, 314);
+            this.editProductButton.Location = new System.Drawing.Point(676, 445);
             this.editProductButton.Name = "editProductButton";
             this.editProductButton.Size = new System.Drawing.Size(96, 41);
             this.editProductButton.TabIndex = 13;
@@ -50,7 +50,7 @@
             // 
             // addProductButton
             // 
-            this.addProductButton.Location = new System.Drawing.Point(599, 179);
+            this.addProductButton.Location = new System.Drawing.Point(217, 445);
             this.addProductButton.Name = "addProductButton";
             this.addProductButton.Size = new System.Drawing.Size(96, 41);
             this.addProductButton.TabIndex = 12;
@@ -60,7 +60,7 @@
             // 
             // deleteProductButton
             // 
-            this.deleteProductButton.Location = new System.Drawing.Point(599, 253);
+            this.deleteProductButton.Location = new System.Drawing.Point(448, 445);
             this.deleteProductButton.Name = "deleteProductButton";
             this.deleteProductButton.Size = new System.Drawing.Size(96, 37);
             this.deleteProductButton.TabIndex = 11;
@@ -77,9 +77,9 @@
             this.columnHeader4});
             this.listViewProducts.FullRowSelect = true;
             this.listViewProducts.HideSelection = false;
-            this.listViewProducts.Location = new System.Drawing.Point(41, 50);
+            this.listViewProducts.Location = new System.Drawing.Point(89, 48);
             this.listViewProducts.Name = "listViewProducts";
-            this.listViewProducts.Size = new System.Drawing.Size(463, 339);
+            this.listViewProducts.Size = new System.Drawing.Size(818, 339);
             this.listViewProducts.TabIndex = 10;
             this.listViewProducts.UseCompatibleStateImageBehavior = false;
             this.listViewProducts.View = System.Windows.Forms.View.Details;
@@ -87,11 +87,12 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 177;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Price";
-            this.columnHeader2.Width = 144;
+            this.columnHeader2.Width = 121;
             // 
             // columnHeader3
             // 
@@ -101,12 +102,13 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "ID";
+            this.columnHeader4.Width = 195;
             // 
             // AllProducts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1074, 540);
             this.Controls.Add(this.editProductButton);
             this.Controls.Add(this.addProductButton);
             this.Controls.Add(this.deleteProductButton);

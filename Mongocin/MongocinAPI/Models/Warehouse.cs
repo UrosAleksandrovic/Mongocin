@@ -11,7 +11,9 @@ namespace MongocinAPI.Models
 {
     public class Warehouse : Storehouse
     {
+        /*
         [BsonElement("Orders")]
         public List<string> Orders { get; set; }
+        */
     }
 }

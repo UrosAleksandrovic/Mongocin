@@ -48,7 +48,7 @@ namespace MongocinDesktop.Forms
 
         private void SaveProduct()
         {
-            WebRequest webRequest = WebRequest.Create("https://localhost:44382/warehouse/Edit/");
+            WebRequest webRequest = WebRequest.Create("https://localhost:44382/Warehouse/Edit/");
             webRequest.Method = "PUT";
             webRequest.ContentType = "application/json";
             List<ProductListElement> myProducts = _wareHouse.Products;
@@ -68,7 +68,7 @@ namespace MongocinDesktop.Forms
             productString = productString + "]";
 
 
-
+            /*
 
             List<string> myOrders = _wareHouse.Orders;
             string orderString = "[";
@@ -88,9 +88,9 @@ namespace MongocinDesktop.Forms
                 }
             }
 
-            orderString = orderString + "]";
+            orderString = orderString + "]";*/
 
-            string postData = "{\"Name\":\"" + _wareHouse.Name + "\", \"Address\":\"" + _wareHouse.Address + "\", \"Id\":\"" + _wareHouse.Id + "\", \"Orders\":" + orderString + ", \"Products\":"+productString+"}";
+            string postData = "{\"Name\":\"" + _wareHouse.Name + "\", \"Address\":\"" + _wareHouse.Address + "\", \"Id\":\"" + _wareHouse.Id + "\", \"Products\":"+productString+"}";
             using (var streamW = new StreamWriter(webRequest.GetRequestStream()))
             {
                 streamW.Write(postData);
@@ -114,6 +114,12 @@ namespace MongocinDesktop.Forms
         {
             Orders p = new Orders(_wareHouse);
             p.ShowDialog();
+        }
+
+        private void buttonHandleRequest_Click(object sender, EventArgs e)
+        {
+            HandleTransferRequest rq = new HandleTransferRequest(_wareHouse);
+            rq.ShowDialog();
         }
     }
 }

@@ -35,6 +35,7 @@
             this.saveWarehouseChangesButton = new System.Windows.Forms.Button();
             this.addressTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.buttonHandleRequest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -99,11 +100,22 @@
             this.nameTextBox.Size = new System.Drawing.Size(146, 22);
             this.nameTextBox.TabIndex = 7;
             // 
+            // buttonHandleRequest
+            // 
+            this.buttonHandleRequest.Location = new System.Drawing.Point(153, 527);
+            this.buttonHandleRequest.Name = "buttonHandleRequest";
+            this.buttonHandleRequest.Size = new System.Drawing.Size(201, 43);
+            this.buttonHandleRequest.TabIndex = 14;
+            this.buttonHandleRequest.Text = "Handle Requests";
+            this.buttonHandleRequest.UseVisualStyleBackColor = true;
+            this.buttonHandleRequest.Click += new System.EventHandler(this.buttonHandleRequest_Click);
+            // 
             // EditWarehouse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 648);
+            this.Controls.Add(this.buttonHandleRequest);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.viewOrdersButton);
@@ -128,5 +140,6 @@
         private System.Windows.Forms.Button saveWarehouseChangesButton;
         private System.Windows.Forms.TextBox addressTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.Button buttonHandleRequest;
     }
 }

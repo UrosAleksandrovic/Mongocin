@@ -81,8 +81,8 @@ namespace MongocinAPI.Services
                 UpdateDefinition<Warehouse> UpdateWarehouse = Builders<Warehouse>.Update
                     .Set("Address", warehouse.Address)
                     .Set("Products", warehouse.Products)
-                    .Set("Name",warehouse.Name)
-                    .Set("Orders",warehouse.Orders);
+                    .Set("Name", warehouse.Name);
+                    //.Set("Orders",warehouse.Orders);
                 _warehouseCollection.UpdateOne(Builders<Warehouse>.Filter.Eq("Id", warehouse.Id.ToString()), UpdateWarehouse);
                 return true;
             }

@@ -100,6 +100,12 @@
     <Compile Include="Forms\EditWarehouse.Designer.cs">
       <DependentUpon>EditWarehouse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\HandleTransferRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HandleTransferRequest.Designer.cs">
+      <DependentUpon>HandleTransferRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditWarehouse.resx">
       <DependentUpon>EditWarehouse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HandleTransferRequest.resx">
+      <DependentUpon>HandleTransferRequest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
