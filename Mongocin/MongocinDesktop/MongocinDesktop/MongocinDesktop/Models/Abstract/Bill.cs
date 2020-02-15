@@ -78,6 +78,19 @@ namespace MongocinDesktop.Models
              this._productList.RemoveAt(this._productList.FindIndex(SingleProduct => SingleProduct.ID == ProductId));
          }
          */
+
+        private void CalculateFullCost()
+        {
+            
+                _fullCost = 0;
+                foreach (ProductListElement SingleProduct in _productList)
+                {
+                    _fullCost += SingleProduct.ProductQuantity;
+                }
+
+                
+            
+        }
         #endregion
 
     }

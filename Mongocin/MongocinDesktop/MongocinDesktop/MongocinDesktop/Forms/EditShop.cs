@@ -1,4 +1,5 @@
 ﻿using MongocinDesktop.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -124,6 +125,38 @@ namespace MongocinDesktop.Forms
             ViewTransferRequest transferRequest = new ViewTransferRequest(_shop);
             transferRequest.ShowDialog();
 
+        }
+
+        private void viewReceiptsButton_Click(object sender, EventArgs e)
+        {
+            Receipts receipts = new Receipts(_shop);
+            receipts.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int value;
+            var webRequest = WebRequest.Create("https://localhost:44382/Shop/CalculateFullValueOfAllProducts/" + _shop.Id + "/") as HttpWebRequest;
+            if (webRequest == null)
+            {
+                return;
+            }
+
+            webRequest.ContentType = "application/json";
+            webRequest.UserAgent = "Nothing";
+
+            using (var s = webRequest.GetResponse().GetResponseStream())
+            {
+                using (var sr = new StreamReader(s))
+                {
+                    var contributorsAsJson = sr.ReadToEnd();
+                    value = JsonConvert.DeserializeObject<int>(contributorsAsJson);
+
+
+                }
+            }
+
+            MessageBox.Show(value.ToString());
         }
     }
 }

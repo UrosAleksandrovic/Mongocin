@@ -105,7 +105,7 @@ namespace MongocinAPI.Controllers
         }
 
         [HttpGet]
-        [Route("Shop/CalculateFullValueOfAllProducts")]
+        [Route("Shop/CalculateFullValueOfAllProducts/{ShopId}")]
         public ActionResult CalculateFullValueOfAllProducts(string ShopId)
         {
             double? FullValue = _shopService.CalculateFullValueOfAllProducts(ShopId);
