@@ -188,6 +188,22 @@ namespace MongocinAPI.Services
             return listOfProducts;
         }
          
+        public bool ShopExists(string ShopId)
+        {
+            try
+            {
+                FilterDefinition<Shop> Filer = Builders<Shop>.Filter.Eq("Id", ShopId);
+                List<Shop> Results = _shopCollection.Find(Filer).ToList();
+                if (Results.Count == 0)
+                    return false;
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         public int Count() => (int)_shopCollection.CountDocuments(shop => true);
 
